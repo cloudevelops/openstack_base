@@ -37,5 +37,6 @@
 #
 class openstack_base {
 
+  include openstack_base::environment::repository
 
 }
