@@ -36,9 +36,14 @@
 # Copyright 2014 Your name here, unless otherwise noted.
 #
 class openstack_base (
+  $mysql_ip                = $openstack_base::params::mysql_ip,
   $mysql_root_password     = $openstack_base::params::mysql_root_password,
   $keystone_enabled        = $openstack_base::params::keystone_enabled,
+  $keystone_ip             = $openstack_base::params::keystone_ip,
   $keystone_mysql_password = $openstack_base::params::keystone_mysql_password,
+  $region                  = $openstack_base::params::region,
+  $admin_token             = $openstack_base::params::admin_token,
+
 ) inherits openstack_base::params {
 
   include openstack_base::environment::repository
