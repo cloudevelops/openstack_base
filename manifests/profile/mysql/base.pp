@@ -14,5 +14,14 @@ class openstack_base::profile::mysql::base {
     }
   }
 
+  if $openstack_base::keystone_enabled {
+
+    class { 'keystone::db::mysql':
+      password      => $openstack_base::keystone_mysql_password,
+      allowed_hosts => '%',
+    }
+
+  }
+
 
 }
