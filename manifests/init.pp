@@ -36,7 +36,9 @@
 # Copyright 2014 Your name here, unless otherwise noted.
 #
 class openstack_base (
-  $mysql_root_password = $openstack_base::params::mysql_root_password
+  $mysql_root_password     = $openstack_base::params::mysql_root_password,
+  $keystone_enabled        = $openstack_base::params::keystone_enabled,
+  $keystone_mysql_password = $openstack_base::params::keystone_mysql_password,
 ) inherits openstack_base::params {
 
   include openstack_base::environment::repository
