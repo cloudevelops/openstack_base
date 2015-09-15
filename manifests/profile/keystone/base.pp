@@ -32,7 +32,7 @@ class openstack_base::profile::keystone::base {
   keystone_user { 'admin':
     ensure   => present,
     enabled  => True,
-    password => $openstack_basse::admin_password,
+    password => $openstack_base::admin_password,
     email    => 'admin@openstack',
   }
 
@@ -48,6 +48,24 @@ class openstack_base::profile::keystone::base {
   keystone_user_role { 'admin@services':
     ensure => present,
     roles  => ['admin'],
+  }
+
+  if $openstack_base::glance_enabled {
+
+    class { 'glance::keystone::auth':
+      password     => $openstack_base::admin_password,
+      email        => 'glance@openstack',
+      public_url   => "http://${openstack_base::keystone_ip}:9292",
+      admin_url    => "http://${openstack_base::keystone_ip}:9292",
+      internal_url => "http://${openstack_base::keystone_ip}:9292",
+      region       => $openstack_base::region,
+    }
+
+    keystone_user_role { 'glance@services':
+      ensure => present,
+      roles  => ['admin'],
+    }
+
   }
 
 }
