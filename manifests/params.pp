@@ -14,4 +14,5 @@ class openstack_base::params {
   $glance_ip = $ipaddress
   $glance_mysql_password = $mysql_root_password
   $rabbitmq_password = 'passw0rd'
+  $rabbitmq_ip = $ipaddress
 }
