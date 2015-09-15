@@ -44,6 +44,9 @@ class openstack_base (
   $region                  = $openstack_base::params::region,
   $admin_token             = $openstack_base::params::admin_token,
   $admin_password          = $openstack_base::params::admin_password,
+  $glance_enabled          = $openstack_base::params::glance_enabled,
+  $glance_ip               = $openstack_base::params::glance_ip,
+  $glance_mysql_password   = $openstack_base::params::glance_mysql_password,
 
 ) inherits openstack_base::params {
 

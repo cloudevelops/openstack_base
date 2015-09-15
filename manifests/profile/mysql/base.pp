@@ -23,5 +23,14 @@ class openstack_base::profile::mysql::base {
 
   }
 
+  if $openstack_base::glance_enabled {
+
+    class { 'glance::db::mysql':
+      password      => $openstack_base::glance_mysql_password,
+      allowed_hosts => '%',
+    }
+
+  }
+
 
 }
