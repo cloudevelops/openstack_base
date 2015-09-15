@@ -29,8 +29,25 @@ class openstack_base::profile::keystone::base {
     enabled => True,
   }
 
-  keystone_tenant { 'demo':
+  keystone_user { 'admin':
+    ensure   => present,
+    enabled  => True,
+    password => $openstack_basse::admin_password,
+    email    => 'admin@openstack',
+  }
+
+  keystone_role { 'admin':
     ensure => present,
+  }
+
+  keystone_user_role { 'admin@admin':
+    ensure => present,
+    roles  => ['admin'],
+  }
+
+  keystone_user_role { 'admin@services':
+    ensure => present,
+    roles  => ['admin'],
   }
 
 }

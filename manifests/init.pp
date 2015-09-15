@@ -43,6 +43,7 @@ class openstack_base (
   $keystone_mysql_password = $openstack_base::params::keystone_mysql_password,
   $region                  = $openstack_base::params::region,
   $admin_token             = $openstack_base::params::admin_token,
+  $admin_password          = $openstack_base::params::admin_password,
 
 ) inherits openstack_base::params {
 
