@@ -14,9 +14,9 @@ class openstack_base::profile::rabbitmq::base {
     tags     => ['openstack'],
   }
 
-  rabbitmq_vhost { '/':
+  ensure_resource('rabbitmq_vhost','/',{
     ensure => present,
-  }
+  })
 
   rabbitmq_user_permissions { 'openstack@/':
     configure_permission => '.*',
