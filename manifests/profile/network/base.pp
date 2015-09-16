@@ -40,6 +40,10 @@ class openstack_base::profile::network::base {
     router_delete_namespaces     => true,
   }
 
+  neutron_l3_agent_config {
+    'DEFAULT/enable_isolated_metadata': value => true;
+  }
+
   class { '::neutron::agents::metadata':
     enabled       => true,
     shared_secret => $openstack_base::metadata_proxy_shared_secret,
