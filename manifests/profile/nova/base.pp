@@ -58,4 +58,6 @@ class openstack_base::profile::nova::base {
     vncproxy_protocol => 'http',
   }
 
+  class {'nova::client': }
+
 }
