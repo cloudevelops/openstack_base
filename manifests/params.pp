@@ -19,4 +19,7 @@ class openstack_base::params {
   $nova_enabled = true
   $nova_ip = $ipaddress
   $nova_mysql_password = $mysql_root_password
+  $neutron_enabled = true
+  $neutron_ip = $ipaddress
+  $neutron_mysql_password = $mysql_root_password
 }

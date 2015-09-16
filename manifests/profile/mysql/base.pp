@@ -41,5 +41,14 @@ class openstack_base::profile::mysql::base {
 
   }
 
+  if $openstack_base::neutron_enabled {
+
+    class { 'neutron::db::mysql':
+      password      => $openstack_base::nova_mysql_password,
+      allowed_hosts => '%',
+    }
+
+  }
+
 
 }

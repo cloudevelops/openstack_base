@@ -53,6 +53,9 @@ class openstack_base (
   $nova_ip                      = $openstack_base::params::nova_ip,
   $nova_mysql_password          = $openstack_base::params::nova_mysql_password,
   $metadata_proxy_shared_secret = $openstack_base::params::metadata_proxy_shared_secret,
+  $neutron_enabled              = $openstack_base::params::neutron_enabled,
+  $neutron_ip                   = $openstack_base::params::neutron_ip,
+  $neutron_mysql_password       = $openstack_base::params::neutron_mysql_password,
 ) inherits openstack_base::params {
 
   include openstack_base::environment::repository
