@@ -32,5 +32,14 @@ class openstack_base::profile::mysql::base {
 
   }
 
+  if $openstack_base::nova_enabled {
+
+    class { 'nova::db::mysql':
+      password      => $openstack_base::nova_mysql_password,
+      allowed_hosts => '%',
+    }
+
+  }
+
 
 }

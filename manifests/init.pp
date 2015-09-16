@@ -49,6 +49,9 @@ class openstack_base (
   $glance_mysql_password   = $openstack_base::params::glance_mysql_password,
   $rabbitmq_password       = $openstack_base::params::rabbitmq_password,
   $rabbitmq_ip             = $openstack_base::params::rabbitmq_ip,
+  $nova_enabled            = $openstack_base::params::nova_enabled,
+  $nova_ip                 = $openstack_base::params::nova_ip,
+  $nova_mysql_password     = $openstack_base::params::nova_mysql_password,
 
 ) inherits openstack_base::params {
 

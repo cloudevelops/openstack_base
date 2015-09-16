@@ -15,4 +15,7 @@ class openstack_base::params {
   $glance_mysql_password = $mysql_root_password
   $rabbitmq_password = 'passw0rd'
   $rabbitmq_ip = $ipaddress
+  $nova_enabled = true
+  $nova_ip = $ipaddress
+  $nova_mysql_password = $mysql_root_password
 }
