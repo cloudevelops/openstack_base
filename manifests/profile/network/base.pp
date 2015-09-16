@@ -29,7 +29,6 @@ class openstack_base::profile::network::base {
     tenant_network_types => ['vxlan'],
     vxlan_group          => '239.1.1.1',
     mechanism_drivers    => ['openvswitch'],
-    flat_networks        => ['*'],
     vni_ranges           => ['65537:69999'], #VXLAN
     tunnel_id_ranges     => ['65537:69999'], #GRE
     network_vlan_ranges  => ['vlannet:802:826'],
@@ -72,8 +71,8 @@ class openstack_base::profile::network::base {
   class { '::neutron::agents::ml2::ovs':
     local_ip         => '172.27.8.5',
     enable_tunneling => true,
-    tunnel_types     => ['gre', 'vxlan'],
-    bridge_mappings  => ['physnet1:br-ex'],
+    tunnel_types     => ['vxlan'],
+    bridge_mappings  => ['vlannet:br-vlan'],
   }
 #->
 #vs_port { 'eth0':
