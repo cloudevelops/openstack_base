@@ -36,8 +36,9 @@ class openstack_base::profile::network::base {
   }
 
   class { '::neutron::agents::l3':
-    external_network_bridge  => 'br-ex',
-    router_delete_namespaces => true,
+    external_network_bridge      => '',
+    gateway_external_network_id  => '',
+    router_delete_namespaces     => true,
   }
 
   class { '::neutron::agents::metadata':
