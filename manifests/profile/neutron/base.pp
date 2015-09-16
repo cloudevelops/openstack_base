@@ -11,8 +11,18 @@ class openstack_base::profile::neutron::base {
     verbose               => true,
     debug                 => false,
     core_plugin           => 'ml2',
-    service_plugins       => ['router', 'metering'],
+    service_plugins       => ['router','firewall','lbaas','vpnaas','metering'],
     allow_overlapping_ips => true,
+  }
+
+  class { '::neutron::plugins::ml2':
+    type_drivers         => ['vxlan', 'local', 'vlan', 'flat'],
+    tenant_network_types => ['vxlan'],
+    vxlan_group          => '239.1.1.1',
+    mechanism_drivers    => ['openvswitch'],
+    vni_ranges           => ['65537:69999'], #VXLAN
+    tunnel_id_ranges     => ['65537:69999'], #GRE
+    network_vlan_ranges  => ['vlannet:802:826'],
   }
 
   class { 'neutron::server':
@@ -30,18 +40,5 @@ class openstack_base::profile::neutron::base {
     nova_admin_tenant_name => 'services',
     nova_admin_password    => $openstack_base::admin_password,
   }
-
-
-  class { '::neutron::plugins::ml2':
-    type_drivers         => ['flat', 'vlan', 'gre', 'vxlan'],
-    tenant_network_types => ['flat', 'vlan', 'gre', 'vxlan'],
-    vxlan_group          => '239.1.1.1',
-    mechanism_drivers    => ['openvswitch'],
-    flat_networks        => ['physnet1'],
-    vni_ranges           => ['1001:2000'], #VXLAN
-    tunnel_id_ranges     => ['1001:2000'], #GRE
-    network_vlan_ranges  => ['physnet1:3001:4000'],
-  }
-
 
 }

@@ -78,10 +78,5 @@ class openstack_base::profile::network::base {
     tunnel_types     => ['vxlan'],
     bridge_mappings  => ['vlannet:br-vlan'],
   }
-#->
-#vs_port { 'eth0':
-#  ensure => present,
-#  bridge => 'br-ex',
-#}
 
 }
