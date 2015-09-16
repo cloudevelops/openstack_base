@@ -87,4 +87,17 @@ class openstack_base::profile::keystone::base {
 
   }
 
+  if $openstack_base::neutron_enabled {
+
+    class { 'neutron::keystone::auth':
+      password            => $openstack_base::admin_password,
+      email               => 'neutron@openstack',
+      region              => $openstack_base::region,
+      public_url          => "http://${openstack_base::neutron_ip}:9696",
+      admin_url           => "http://${openstack_base::neutron_ip}:9696",
+      internal_url        => "http://${openstack_base::neutron_ip}:9696",
+    }
+
+  }
+
 }
