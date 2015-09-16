@@ -68,4 +68,35 @@ class openstack_base::profile::keystone::base {
 
   }
 
+  if $openstack_base::nova_enabled {
+
+    class { 'nova::keystone::auth':
+      password         => $openstack_base::admin_password,
+      email            => 'glance@openstack',
+      public_url       => "http://${openstack_base::nova_ip}:8774/v2/%(tenant_id)s",
+      internal_url     => "http://${openstack_base::nova_ip}:8774/v2/%(tenant_id)s",
+      admin_url        => "http://${openstack_base::nova_ip}:8774/v2/%(tenant_id)s",
+      public_url_v3    => "http://${openstack_base::nova_ip}:8774/v3",
+      internal_url_v3  => "http://${openstack_base::nova_ip}:8774/v3",
+      admin_url_v3     => "http://${openstack_base::nova_ip}:8774/v3",
+      ec2_public_url   => "http://${openstack_base::nova_ip}:8773/services/Cloud",
+      ec2_internal_url => "http://${openstack_base::nova_ip}:8773/services/Cloud",
+      ec2_admin_url    => "http://${openstack_base::nova_ip}:8773/services/Admin",
+      region           => $openstack_base::region,
+    }
+
+#keystone_user { 'nova':
+#  ensure   => present,
+#  enabled  => True,
+#  password => $admin_password,
+#  email    => 'nova@openstack',
+#}
+#
+#keystone_user_role { 'nova@services':
+#  ensure => present,
+#  roles  => ['admin'],
+#}
+
+  }
+
 }
