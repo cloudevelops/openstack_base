@@ -3,8 +3,7 @@ class openstack_base::profile::glance::base {
   include openstack_base
 
   class { 'glance::api':
-    auth_uri            => "http://${openstack_base::keystone_ip}:5000",
-#    auth_url            => "http://${openstack_base::keystone_ip}:35357"
+    identity_uri        => "http://${openstack_base::keystone_ip}:35357",
     verbose             => true,
     keystone_tenant     => 'services',
     keystone_user       => 'glance',
@@ -13,7 +12,7 @@ class openstack_base::profile::glance::base {
   }
 
   class { 'glance::registry':
-    auth_uri            => "http://${openstack_base::keystone_ip}:5000",
+    identity_uri        => "http://${openstack_base::keystone_ip}:35357",
     verbose             => true,
     keystone_tenant     => 'services',
     keystone_user       => 'glance',
