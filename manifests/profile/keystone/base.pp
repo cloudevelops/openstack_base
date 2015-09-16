@@ -55,9 +55,9 @@ class openstack_base::profile::keystone::base {
     class { 'glance::keystone::auth':
       password     => $openstack_base::admin_password,
       email        => 'glance@openstack',
-      public_url   => "http://${openstack_base::keystone_ip}:9292",
-      admin_url    => "http://${openstack_base::keystone_ip}:9292",
-      internal_url => "http://${openstack_base::keystone_ip}:9292",
+      public_url   => "http://${openstack_base::glance_ip}:9292",
+      admin_url    => "http://${openstack_base::glance_ip}:9292",
+      internal_url => "http://${openstack_base::glance_ip}:9292",
       region       => $openstack_base::region,
     }
 
