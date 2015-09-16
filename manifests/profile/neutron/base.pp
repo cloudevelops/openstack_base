@@ -16,13 +16,14 @@ class openstack_base::profile::neutron::base {
   }
 
   class { 'neutron::server':
-    auth_user           => 'neutron',
-    auth_password       => $openstack_base::admin_password,
-    auth_tenant         => 'services',
-    auth_uri            => "http://${openstack_base::keystone_ip}:5000/v2.0",
-    identity_uri        => "http://${openstack_base::keystone_ip}:35357",
-    database_connection => "mysql://neutron:${openstack_base::neutron_mysql_password}@${openstack_base::mysql_ip}/neutron?charset=utf8",
-    sync_db             => true,
+    auth_user                        => 'neutron',
+    auth_password                    => $openstack_base::admin_password,
+    auth_tenant                      => 'services',
+    auth_uri                         => "http://${openstack_base::keystone_ip}:5000/v2.0",
+    identity_uri                     => "http://${openstack_base::keystone_ip}:35357",
+    database_connection              => "mysql://neutron:${openstack_base::neutron_mysql_password}@${openstack_base::mysql_ip}/neutron?charset=utf8",
+    sync_db                          => true,
+    allow_automatic_l3agent_failover => true,
   }
 
   class { '::neutron::server::notifications':
