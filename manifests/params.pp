@@ -9,6 +9,7 @@ class openstack_base::params {
   $region = 'RegionOne'
   # generate admin_token with echo "`openssl rand -hex 4`-`openssl rand -hex 2`-`openssl rand -hex 2`-`openssl rand -hex 2`-`openssl rand -hex 6`"
   $admin_token = '5c703e80-c4b5-3916-e3c7-9b498d6f37a5'
+  $metadata_proxy_shared_secret = '3ec79d78-dc87-142a-2d85-a42a95ed2069'
   $admin_password = 'passw0rd'
   $glance_enabled = true
   $glance_ip = $ipaddress

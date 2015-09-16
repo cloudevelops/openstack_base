@@ -85,18 +85,6 @@ class openstack_base::profile::keystone::base {
       region           => $openstack_base::region,
     }
 
-#keystone_user { 'nova':
-#  ensure   => present,
-#  enabled  => True,
-#  password => $admin_password,
-#  email    => 'nova@openstack',
-#}
-#
-#keystone_user_role { 'nova@services':
-#  ensure => present,
-#  roles  => ['admin'],
-#}
-
   }
 
 }
