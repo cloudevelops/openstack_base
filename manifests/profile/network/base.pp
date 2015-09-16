@@ -11,6 +11,30 @@ class openstack_base::profile::network::base {
       value => '0';
   }
 
+  class { '::neutron':
+    enabled               => true,
+    bind_host             => '0.0.0.0',
+    rabbit_host           => $openstack_base::rabbitmq_ip,
+    rabbit_user           => 'openstack',
+    rabbit_password       => $openstack_base::rabbitmq_password,
+    verbose               => true,
+    debug                 => false,
+    core_plugin           => 'ml2',
+    service_plugins       => ['router', 'metering'],
+    allow_overlapping_ips => true,
+  }
+
+  class { '::neutron::plugins::ml2':
+    type_drivers         => ['flat', 'vlan', 'gre', 'vxlan'],
+    tenant_network_types => ['flat', 'vlan', 'gre', 'vxlan'],
+    vxlan_group          => '239.1.1.1',
+    mechanism_drivers    => ['openvswitch'],
+    flat_networks        => ['physnet1'],
+    vni_ranges           => ['1001:2000'], #VXLAN
+    tunnel_id_ranges     => ['1001:2000'], #GRE
+    network_vlan_ranges  => ['physnet1:3001:4000'],
+  }
+
   class { '::neutron::agents::l3':
     external_network_bridge  => 'br-ex',
     router_delete_namespaces => true,
