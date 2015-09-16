@@ -53,5 +53,6 @@ class openstack_base (
 ) inherits openstack_base::params {
 
   include openstack_base::environment::repository
+  include openstack_base::environment::sourcefiles
 
 }
