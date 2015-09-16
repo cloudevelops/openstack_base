@@ -61,13 +61,6 @@ class openstack_base::profile::keystone::base {
       region       => $openstack_base::region,
     }
 
-    keystone_user { 'glance':
-      ensure   => present,
-      enabled  => True,
-      password => $openstack_base::admin_password,
-      email    => 'glance@openstack',
-    }
-
     keystone_user_role { 'glance@services':
       ensure => present,
       roles  => ['admin'],
