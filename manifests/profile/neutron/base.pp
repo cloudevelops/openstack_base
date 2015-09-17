@@ -12,6 +12,7 @@ class openstack_base::profile::neutron::base {
     database_connection              => "mysql://neutron:${openstack_base::neutron_mysql_password}@${openstack_base::mysql_ip}/neutron?charset=utf8",
     sync_db                          => true,
     allow_automatic_l3agent_failover => true,
+    nova_url                         => "http://${openstack_base::nova_ip}:8774/v2",
   }
 
   class { '::neutron::server::notifications':
