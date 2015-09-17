@@ -7,7 +7,7 @@ class openstack_base::profile::compute::base (
   include openstack_base::profile::neutron::shared
 
   file {'/etc/network/ovs':
-    content => template('profile/neutron/ovs.erb'),
+    content => template('openstack_base/profile/neutron/ovs.erb'),
     mode => 555,
   }
 
