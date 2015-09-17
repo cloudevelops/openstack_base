@@ -1,3 +1,11 @@
+#
+# the bridge, which connects the nodes to the transport network
+ovs-vsctl add-br br-uplink
+# the bridge used by Openstack Neutron to connect vlans and flatdhcp networks
+ovs-vsctl add-br br-vlan
+# the integration bridge used by Openstack
+ovs-vsctl add-br br-int
+# the management bridge used by Openstack
 ovs-vsctl add-br br-mgmt
 #
 # add the uplink (with dot1q tags 101,102,...)
