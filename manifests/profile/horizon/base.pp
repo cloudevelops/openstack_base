@@ -5,6 +5,7 @@ class openstack_base::profile::horizon::base {
   class { '::horizon':
     cache_server_ip       => $openstack_base::memcache_ip,
     cache_server_port     => '11211',
+    servername            => $openstack_base::horizon_fqdn,
     secret_key            => $openstack_base::horizon_secret,
     keystone_url          => "http://${openstack_base::keystone_ip}:5000/v2.0",
     django_debug          => 'True',
