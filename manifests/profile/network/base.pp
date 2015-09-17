@@ -30,6 +30,11 @@ class openstack_base::profile::network::base (
     'DEFAULT/enable_isolated_metadata': value => true;
   }
 
+  file {'/etc/neutron/fwaas_driver.ini':
+    ensure => present,
+    source => 'puppet:///modules/openstack_base/profile/neutron/fwaas_driver.ini',
+  }
+
   class { '::neutron::agents::metadata':
     enabled       => true,
     shared_secret => $openstack_base::metadata_proxy_shared_secret,
