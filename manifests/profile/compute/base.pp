@@ -1,10 +1,12 @@
-class openstack_base::profile::compute::base {
+class openstack_base::profile::compute::base (
+  $vxlan_ip
+) {
 
   include openstack_base
   include openstack_base::profile::neutron::shared
 
   class { '::neutron::agents::ml2::ovs':
-    local_ip         => $ipaddress_l3vxlan,
+    local_ip         => $vxlan_ip,
     enable_tunneling => true,
     tunnel_types     => ['vxlan'],
     bridge_mappings  => ['vlannet:br-vlan'],
