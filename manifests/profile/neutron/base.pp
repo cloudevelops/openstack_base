@@ -23,4 +23,9 @@ class openstack_base::profile::neutron::base {
 
   ensure_packages('python-neutron-lbaas')
 
+  file {'/etc/neutron/neutron_lbaas.conf':
+    ensure => present,
+    source => 'puppet:///modules/openstack_base/profile/neutron/neutron_lbaas.conf',
+  }
+
 }
