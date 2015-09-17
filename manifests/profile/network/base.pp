@@ -1,6 +1,7 @@
 class openstack_base::profile::network::base {
 
   include openstack_base
+  include openstack_base::profile::neutron::shared
 
   sysctl::value {
     'net.ipv4.ip_forward':
@@ -9,29 +10,6 @@ class openstack_base::profile::network::base {
       value => '0';
     'net.ipv4.conf.default.rp_filter':
       value => '0';
-  }
-
-  class { '::neutron':
-    enabled               => true,
-    bind_host             => '0.0.0.0',
-    rabbit_host           => $openstack_base::rabbitmq_ip,
-    rabbit_user           => 'openstack',
-    rabbit_password       => $openstack_base::rabbitmq_password,
-    verbose               => true,
-    debug                 => false,
-    core_plugin           => 'ml2',
-    service_plugins       => ['router','firewall','lbaas','metering'],
-    allow_overlapping_ips => true,
-  }
-
-  class { '::neutron::plugins::ml2':
-    type_drivers         => ['vxlan', 'local', 'vlan', 'flat'],
-    tenant_network_types => ['vxlan'],
-    vxlan_group          => '239.1.1.1',
-    mechanism_drivers    => ['openvswitch'],
-    vni_ranges           => ['65537:69999'], #VXLAN
-    tunnel_id_ranges     => ['65537:69999'], #GRE
-    network_vlan_ranges  => ['vlannet:802:826'],
   }
 
   class { '::neutron::agents::l3':
@@ -69,7 +47,7 @@ class openstack_base::profile::network::base {
   }
 
   class { '::neutron::agents::ml2::ovs':
-    local_ip         => '172.27.8.5',
+    local_ip         => $ipaddress_l3vxlan,
     enable_tunneling => true,
     tunnel_types     => ['vxlan'],
     bridge_mappings  => ['vlannet:br-vlan'],
