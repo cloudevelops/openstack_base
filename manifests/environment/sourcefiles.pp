@@ -1,6 +1,6 @@
 class openstack_base::environment::sourcefiles {
 
-  file { '/root/keystonerc_admin':
+  file { '/root/.keystonerc':
     ensure  => present,
     content =>
       "export OS_AUTH_URL=http://${openstack_base::keystone_ip}:35357/v2.0
@@ -13,7 +13,7 @@ export OS_VOLUME_API_VERSION=2
 
   file_line { 'keystonerc':
     path => '/root/.bashrc',
-    line => 'source ~/.openstack/openstackrc',
+    line => 'source ~/.keystonerc',
   }
 
 }
