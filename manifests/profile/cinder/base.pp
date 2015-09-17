@@ -19,4 +19,7 @@ class openstack_base::profile::cinder::base {
     scheduler_driver => 'cinder.scheduler.simple.SimpleScheduler',
   }
 
+  class {'cinder::client':
+  }
+
 }
