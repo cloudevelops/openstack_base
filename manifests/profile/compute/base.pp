@@ -1,11 +1,13 @@
 class openstack_base::profile::compute::base (
   $mgmt_ip,
   $vxlan_ip,
+  $volume_ip,
 ) {
 
   include openstack_base
   include openstack_base::profile::neutron::shared
   include openstack_base::profile::nova::shared
+  include openstack_base::profile::cinder::shared
 
   file {'/etc/network/ovs':
     content => template('openstack_base/profile/neutron/ovs.erb'),
@@ -32,6 +34,16 @@ class openstack_base::profile::compute::base (
     # Narrow down listening if not needed for troubleshooting
     vncserver_listen  => '0.0.0.0',
     libvirt_virt_type => 'kvm',
+  }
+
+  class { 'cinder::volume':
+    enabled => true,
+  }
+
+  class { 'cinder::volume::iscsi':
+    iscsi_ip_address => $volume_ip,
+    volume_driver    => 'cinder.volume.drivers.lvm.LVMVolumeDriver',
+    volume_group     => 'vg0',
   }
 
 }
