@@ -20,6 +20,8 @@ class openstack_base::profile::nova::base {
 
   class { 'nova::network::neutron':
     neutron_admin_password  => $openstack_base::admin_password,
+    neutron_admin_auth_url => "http://${openstack_base::keystone_ip}:35357/v2.0",
+    neutron_url => "http://${openstack_base::neutron_ip}:9696",
   }
 
   class { 'nova::scheduler':
