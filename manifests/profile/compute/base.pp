@@ -5,6 +5,7 @@ class openstack_base::profile::compute::base (
 
   include openstack_base
   include openstack_base::profile::neutron::shared
+  include openstack_base::profile::nova::shared
 
   file {'/etc/network/ovs':
     content => template('openstack_base/profile/neutron/ovs.erb'),
