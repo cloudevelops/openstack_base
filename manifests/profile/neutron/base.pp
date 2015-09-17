@@ -21,4 +21,6 @@ class openstack_base::profile::neutron::base {
     nova_admin_auth_url    => "http://${openstack_base::keystone_ip}:35357/v2.0"
   }
 
+  ensure_packages('python-neutron-lbaas')
+
 }
