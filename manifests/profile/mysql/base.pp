@@ -9,7 +9,8 @@ class openstack_base::profile::mysql::base {
     override_options => {
       'mysqld' => {
         'skip-name-resolve' => true,
-        'bind-address'  => '0.0.0.0'
+        'bind-address'  => '0.0.0.0',
+        'max_connections' => '4096',
       }
     }
   }
