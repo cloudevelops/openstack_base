@@ -4,7 +4,7 @@ class openstack_base::profile::network::base {
 
   sysctl::value {
     'net.ipv4.ip_forward':
-      value => '1';
+      value => '0';
     'net.ipv4.conf.all.rp_filter':
       value => '0';
     'net.ipv4.conf.default.rp_filter':
@@ -20,7 +20,7 @@ class openstack_base::profile::network::base {
     verbose               => true,
     debug                 => false,
     core_plugin           => 'ml2',
-    service_plugins       => ['router','firewall','lbaas','vpnaas','metering'],
+    service_plugins       => ['router','firewall','lbaas','metering'],
     allow_overlapping_ips => true,
   }
 
@@ -61,10 +61,6 @@ class openstack_base::profile::network::base {
   }
 
   class { '::neutron::agents::lbaas':
-    enabled => true,
-  }
-
-  class { '::neutron::agents::vpnaas':
     enabled => true,
   }
 

@@ -11,7 +11,7 @@ class openstack_base::profile::neutron::base {
     verbose               => true,
     debug                 => false,
     core_plugin           => 'ml2',
-    service_plugins       => ['router','firewall','lbaas','vpnaas','metering'],
+    service_plugins       => ['router','firewall','lbaas','metering'],
     allow_overlapping_ips => true,
   }
 
