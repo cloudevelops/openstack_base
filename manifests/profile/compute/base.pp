@@ -1,9 +1,15 @@
 class openstack_base::profile::compute::base (
-  $vxlan_ip
+  $mgmt_ip,
+  $vxlan_ip,
 ) {
 
   include openstack_base
   include openstack_base::profile::neutron::shared
+
+  file {'/etc/network/ovs':
+    content => template('profile/neutron/ovs.erb'),
+    mode => 555,
+  }
 
   class { '::neutron::agents::ml2::ovs':
     local_ip         => $vxlan_ip,
