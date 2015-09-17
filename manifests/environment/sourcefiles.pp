@@ -11,4 +11,9 @@ export OS_VOLUME_API_VERSION=2
 ",
   }
 
+  file_line { 'keystonerc':
+    path => '/root/.bashrc',
+    line => 'source ~/.openstack/openstackrc',
+  }
+
 }
