@@ -56,6 +56,9 @@ class openstack_base (
   $neutron_enabled              = $openstack_base::params::neutron_enabled,
   $neutron_ip                   = $openstack_base::params::neutron_ip,
   $neutron_mysql_password       = $openstack_base::params::neutron_mysql_password,
+  $memcache_ip                  = $openstack_base::params::memcache_ip,
+  $horizon_secret               = $openstack_base::params::horizon_secret,
+
 ) inherits openstack_base::params {
 
   include openstack_base::environment::repository
