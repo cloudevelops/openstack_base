@@ -1,0 +1,46 @@
+ovs-vsctl add-br br-mgmt
+#
+# add the uplink (with dot1q tags 101,102,...)
+# we assume, that eth1 is the uplink interface
+ip link set dev bond0 up
+# set the mtu of the physical uplink to the switch
+ip link set dev bond0 mtu 9000
+ethtool -K bond0 tso off gro off gso off tx off rx off
+ip link set bond0 promisc on
+#
+# disable gro and lro !! on the uplink
+#ethtool -K eth1 gro off
+#ethtool -K eth1 lro off
+#
+# enable for intel NICs udp port hashing to distribute traffic to different queues
+#ethtool -N eth1 rx-flow-hash udp4 sdfn
+#
+ovs-vsctl add-port br-uplink bond0 -- set port bond0 vlan_mode=trunk trunk=802,822,823,824,825,826
+#
+# patch ports between br-uplink and br-vlan
+ovs-vsctl add-port br-vlan patch-to-uplink -- set Interface patch-to-uplink type=patch options:peer=patch-to-vlan
+ovs-vsctl add-port br-uplink patch-to-vlan -- set Interface patch-to-vlan type=patch options:peer=patch-to-uplink
+# patch ports between br-uplink and br-mgmt
+ovs-vsctl add-port br-mgmt patch-to-uplink-mgmt -- set Interface patch-to-uplink-mgmt type=patch options:peer=patch-to-mgmt
+ovs-vsctl add-port br-uplink patch-to-mgmt -- set Interface patch-to-mgmt type=patch options:peer=patch-to-uplink-mgmt
+#
+# on br-uplink the allowed vlan tags on the patch port from br-vlan must be filtered using Openflow rules
+# if this is not done, there is a risk that vlans from the infrastructure may get mixed with local vlans
+# of br-int, if the neutron Openvswitch agent fails to set up the vlan mapping on br-vlan or br-int
+# TBD
+###
+ovs-vsctl add-port br-mgmt mgmt tag=822 -- set Interface mgmt type=internal
+ip addr add <%= @mgmt_ip %>/24 dev mgmt
+ip link set dev mgmt up
+# set the mtu of the logical vxlan interface
+ip link set dev mgmt mtu 9000
+
+# create the Linux IP interface required for VXLAN transport
+# this interface is attached to vlan 4000 of br-uplink
+# XXX = Last octet of the VXLAN interface ip address of the node
+ovs-vsctl add-port br-uplink l3vxlan tag=823 -- set Interface l3vxlan type=internal
+ip addr add <%= @vxlan_ip %>/24 dev l3vxlan
+ip link set dev l3vxlan up
+# set the mtu of the logical vxlan interface
+ip link set dev l3vxlan mtu 9000
+
