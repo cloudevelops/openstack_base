@@ -100,4 +100,20 @@ class openstack_base::profile::keystone::base {
 
   }
 
+  if $openstack_base::cinder_enabled {
+
+    class { 'cinder::keystone::auth':
+      password            => $openstack_base::admin_password,
+      email               => 'cinder@openstack',
+      region              => $openstack_base::region,
+      public_url          => "http://${openstack_base::cinder_ip}:8776/v1/%(tenant_id)s",
+      internal_url        => "http://${openstack_base::cinder_ip}:8776/v1/%(tenant_id)s",
+      admin_url           => "http://${openstack_base::cinder_ip}:8776/v1/%(tenant_id)s",
+      public_url_v2       => "http://${openstack_base::cinder_ip}:8776/v2/%(tenant_id)s",
+      internal_url_v2     => "http://${openstack_base::cinder_ip}:8776/v2/%(tenant_id)s",
+      admin_url_v2        => "http://${openstack_base::cinder_ip}:8776/v2/%(tenant_id)s",
+    }
+
+  }
+
 }

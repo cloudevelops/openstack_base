@@ -50,5 +50,15 @@ class openstack_base::profile::mysql::base {
 
   }
 
+  if $openstack_base::cinder_enabled {
+
+    class { 'cinder::db::mysql':
+      password      => $openstack_base::cinder_mysql_password,
+      allowed_hosts => '%',
+    }
+
+  }
+
+
 
 }

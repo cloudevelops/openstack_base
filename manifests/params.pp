@@ -24,4 +24,7 @@ class openstack_base::params {
   $neutron_mysql_password = $mysql_root_password
   $memcache_ip = $ipaddress
   $horizon_secret = 'bd7c2726-381d-3a8c-87ed-33f89dd8721e'
+  $cinder_enabled = true
+  $cinder_ip = $ipaddress
+  $cinder_mysql_password = $mysql_root_password
 }

@@ -58,6 +58,9 @@ class openstack_base (
   $neutron_mysql_password       = $openstack_base::params::neutron_mysql_password,
   $memcache_ip                  = $openstack_base::params::memcache_ip,
   $horizon_secret               = $openstack_base::params::horizon_secret,
+  $cinder_enabled               = $openstack_base::params::cinder_enabled,
+  $cinder_ip                    = $openstack_base::params::cinder_ip,
+  $cinder_mysql_password        = $openstack_base::params::cinder_mysql_password,
 
 ) inherits openstack_base::params {
 
