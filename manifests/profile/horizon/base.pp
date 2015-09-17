@@ -7,7 +7,6 @@ class openstack_base::profile::horizon::base {
     cache_server_port     => '11211',
     secret_key            => $openstack_base::horizon_secret,
     keystone_url          => "http://${openstack_base::keystone_ip}:5000/v2.0",
-    swift                 => false,
     django_debug          => 'True',
     api_result_limit      => '2000',
     neutron_options       => {
