@@ -10,7 +10,7 @@ class openstack_base::profile::mysql::base {
       'mysqld' => {
         'skip-name-resolve' => true,
         'bind-address'  => '0.0.0.0',
-        'max_connections' => '4096',
+        'max_connections' => '1024',
       }
     }
   }
