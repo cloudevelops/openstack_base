@@ -1,3 +1,4 @@
+#!/bin/sh
 #
 # the bridge, which connects the nodes to the transport network
 ovs-vsctl add-br br-uplink
@@ -51,4 +52,3 @@ ip addr add <%= @vxlan_ip %>/24 dev l3vxlan
 ip link set dev l3vxlan up
 # set the mtu of the logical vxlan interface
 ip link set dev l3vxlan mtu 9000
-
