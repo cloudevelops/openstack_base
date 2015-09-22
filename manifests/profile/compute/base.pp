@@ -27,6 +27,7 @@ class openstack_base::profile::compute::base (
     vncproxy_host     => $openstack_base::nova_ip,
     vncproxy_protocol => 'http',
     vncproxy_port     => '6080',
+    vncserver_proxyclient_address => $ipaddress_mgmt,
   }
 
   class { 'nova::compute::libvirt':
