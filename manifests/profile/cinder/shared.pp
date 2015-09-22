@@ -8,4 +8,8 @@ class openstack_base::profile::cinder::shared {
     verbose             => true,
   }
 
+  cinder_config {
+    'DEFAULT/glance_host':                   value => $openstack_base::glance_ip;
+  }
+
 }
