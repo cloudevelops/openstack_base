@@ -43,7 +43,7 @@ class openstack_base::profile::network::base (
     auth_tenant   => 'services',
     auth_url      => "http://${openstack_base::keystone_ip}:35357/v2.0",
     auth_region   => $openstack_base::region_name,
-    metadata_ip   => $openstack_base::neutron_ip,
+    metadata_ip   => $openstack_base::nova_ip,
   }
 
   class { '::neutron::agents::dhcp':
