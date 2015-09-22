@@ -61,6 +61,15 @@ class openstack_base::profile::publiclb::base {
       dport => '8773',
       jump => 'DNAT',
       todest => "${openstack_base::nova_ip}:8773";
+    '101_dnat_for_nova_novnc':
+      ensure => 'present',
+      table => 'nat',
+      chain => 'PREROUTING',
+      destination => $openstack_base::public_api_ip,
+      proto => 'tcp',
+      dport => '6080',
+      jump => 'DNAT',
+      todest => "${openstack_base::nova_ip}:6080";
     '101_dnat_for_neutron':
       ensure => 'present',
       table => 'nat',
