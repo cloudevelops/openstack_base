@@ -79,6 +79,13 @@ class openstack_base::profile::publiclb::base {
       dport => '8776',
       jump => 'DNAT',
       todest => "${openstack_base::cinder_ip}:8776";
+    '102_masq_for_management':
+      ensure => 'present',
+      table => 'nat',
+      chain    => 'POSTROUTING',
+      jump     => 'MASQUERADE',
+      proto    => 'all',
+      outiface => 'eth1';
   }
 
 }
