@@ -29,4 +29,5 @@ class openstack_base::params {
   $cinder_enabled = true
   $cinder_ip = $ipaddress
   $cinder_mysql_password = $mysql_root_password
+  $public_api_ip = $ipaddress
 }

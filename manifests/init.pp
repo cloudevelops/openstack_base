@@ -63,6 +63,7 @@ class openstack_base (
   $cinder_enabled               = $openstack_base::params::cinder_enabled,
   $cinder_ip                    = $openstack_base::params::cinder_ip,
   $cinder_mysql_password        = $openstack_base::params::cinder_mysql_password,
+  $public_api_ip                = $openstack_base::params::public_api_ip,
 
 ) inherits openstack_base::params {
 

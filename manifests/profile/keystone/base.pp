@@ -13,7 +13,7 @@ class openstack_base::profile::keystone::base {
 
   # Installs the service user endpoint.
   class { 'keystone::endpoint':
-    public_url   => "http://${openstack_base::keystone_ip}:5000",
+    public_url   => "http://${openstack_base::public_api_ip}:5000",
     admin_url    => "http://${openstack_base::keystone_ip}:35357",
     internal_url => "http://${openstack_base::keystone_ip}:5000",
     region       => $openstack_base::region,
@@ -55,7 +55,7 @@ class openstack_base::profile::keystone::base {
     class { 'glance::keystone::auth':
       password     => $openstack_base::admin_password,
       email        => 'glance@openstack',
-      public_url   => "http://${openstack_base::glance_ip}:9292",
+      public_url   => "http://${openstack_base::public_api_ip}:9292",
       admin_url    => "http://${openstack_base::glance_ip}:9292",
       internal_url => "http://${openstack_base::glance_ip}:9292",
       region       => $openstack_base::region,
@@ -73,13 +73,13 @@ class openstack_base::profile::keystone::base {
     class { 'nova::keystone::auth':
       password         => $openstack_base::admin_password,
       email            => 'glance@openstack',
-      public_url       => "http://${openstack_base::nova_ip}:8774/v2/%(tenant_id)s",
+      public_url       => "http://${openstack_base::public_api_ip}:8774/v2/%(tenant_id)s",
       internal_url     => "http://${openstack_base::nova_ip}:8774/v2/%(tenant_id)s",
       admin_url        => "http://${openstack_base::nova_ip}:8774/v2/%(tenant_id)s",
-      public_url_v3    => "http://${openstack_base::nova_ip}:8774/v3",
+      public_url_v3    => "http://${openstack_base::public_api_ip}:8774/v3",
       internal_url_v3  => "http://${openstack_base::nova_ip}:8774/v3",
       admin_url_v3     => "http://${openstack_base::nova_ip}:8774/v3",
-      ec2_public_url   => "http://${openstack_base::nova_ip}:8773/services/Cloud",
+      ec2_public_url   => "http://${openstack_base::public_api_ip}:8773/services/Cloud",
       ec2_internal_url => "http://${openstack_base::nova_ip}:8773/services/Cloud",
       ec2_admin_url    => "http://${openstack_base::nova_ip}:8773/services/Admin",
       region           => $openstack_base::region,
@@ -93,7 +93,7 @@ class openstack_base::profile::keystone::base {
       password            => $openstack_base::admin_password,
       email               => 'neutron@openstack',
       region              => $openstack_base::region,
-      public_url          => "http://${openstack_base::neutron_ip}:9696",
+      public_url          => "http://${openstack_base::public_api_ip}:9696",
       admin_url           => "http://${openstack_base::neutron_ip}:9696",
       internal_url        => "http://${openstack_base::neutron_ip}:9696",
     }
@@ -106,10 +106,10 @@ class openstack_base::profile::keystone::base {
       password            => $openstack_base::admin_password,
       email               => 'cinder@openstack',
       region              => $openstack_base::region,
-      public_url          => "http://${openstack_base::cinder_ip}:8776/v1/%(tenant_id)s",
+      public_url          => "http://${openstack_base::public_api_ip}:8776/v1/%(tenant_id)s",
       internal_url        => "http://${openstack_base::cinder_ip}:8776/v1/%(tenant_id)s",
       admin_url           => "http://${openstack_base::cinder_ip}:8776/v1/%(tenant_id)s",
-      public_url_v2       => "http://${openstack_base::cinder_ip}:8776/v2/%(tenant_id)s",
+      public_url_v2       => "http://${openstack_base::public_api_ip}:8776/v2/%(tenant_id)s",
       internal_url_v2     => "http://${openstack_base::cinder_ip}:8776/v2/%(tenant_id)s",
       admin_url_v2        => "http://${openstack_base::cinder_ip}:8776/v2/%(tenant_id)s",
     }
