@@ -41,10 +41,4 @@ class openstack_base::profile::compute::base (
     enabled => true,
   }
 
-  class { 'cinder::volume::iscsi':
-    iscsi_ip_address => $volume_ip,
-    volume_driver    => 'cinder.volume.drivers.lvm.LVMVolumeDriver',
-    volume_group     => 'vg0',
-  }
-
 }
