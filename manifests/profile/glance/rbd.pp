@@ -6,6 +6,10 @@ class openstack_base::profile::glance::rbd (
   include openstack_base
   include ceph_base
 
+  group { 'cinder':
+    ensure => present
+  }
+
   class { 'glance::api':
     identity_uri        => "http://${openstack_base::keystone_ip}:35357",
     verbose             => true,
