@@ -6,6 +6,11 @@ class openstack_base::profile::compute::lvm (
     iscsi_ip_address => $volume_ip,
     volume_driver    => 'cinder.volume.drivers.lvm.LVMVolumeDriver',
     volume_group     => 'vg0',
+    extra_options    => {
+      'default/lvm_type' => {
+        value => 'thin'
+      }
+    }
   }
 
   if $ephemeral_storage {
