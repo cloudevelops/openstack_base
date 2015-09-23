@@ -1,7 +1,7 @@
 # create images
-# glance image-create --name ubuntu-trusty3 --is-public true --disk-format qcow2 --container-format bare --file /tmp/trusty-server-cloudimg-amd64-disk1.img
+# glance image-create --name Ubuntu-14.04 --is-public true --disk-format qcow2 --container-format bare --file /tmp/trusty-server-cloudimg-amd64-disk1.img
 # optimize images for ceph
-# glance image-update --property hw_scsi_model=virtio-scsi --property hw_disk_bus=scsi --property hw_qemu_guest_agent=yes --property os_require_quiesce=yes ubuntu-trusty
+# glance image-update --property hw_scsi_model=virtio-scsi --property hw_disk_bus=scsi --property hw_qemu_guest_agent=yes --property os_require_quiesce=yes Ubuntu-14.04
 
 class openstack_base::profile::glance::rbd (
   $rbd_user = 'client.glance',
