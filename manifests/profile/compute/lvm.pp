@@ -7,7 +7,7 @@ class openstack_base::profile::compute::lvm (
     volume_driver    => 'cinder.volume.drivers.lvm.LVMVolumeDriver',
     volume_group     => 'vg0',
     extra_options    => {
-      'default/lvm_type' => {
+      'DEFAULT/lvm_type' => {
         value => 'thin'
       }
     }
