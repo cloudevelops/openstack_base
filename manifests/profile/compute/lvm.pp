@@ -10,7 +10,10 @@ class openstack_base::profile::compute::lvm (
 
   if $ephemeral_storage {
     nova_config {
-      'libvirt/images_type':          value => 'lvm';
+      'libvirt/images_type':
+        value => 'lvm';
+      'libvirt/libvirt_images_volume_group':
+        value => 'vg0';
     }
   }
 
