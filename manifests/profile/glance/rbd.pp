@@ -7,13 +7,14 @@ class openstack_base::profile::glance::rbd (
   include ceph_base
 
   class { 'glance::api':
-    identity_uri        => "http://${openstack_base::keystone_ip}:35357",
-    verbose             => true,
-    keystone_tenant     => 'services',
-    keystone_user       => 'glance',
-    keystone_password   => $openstack_base::admin_password,
-    database_connection => "mysql://glance:${openstack_base::glance_mysql_password}@${openstack_base::mysql_ip}/glance",
-    known_stores        => ['rbd']
+    identity_uri          => "http://${openstack_base::keystone_ip}:35357",
+    verbose               => true,
+    keystone_tenant       => 'services',
+    keystone_user         => 'glance',
+    keystone_password     => $openstack_base::admin_password,
+    database_connection   => "mysql://glance:${openstack_base::glance_mysql_password}@${openstack_base::mysql_ip}/glance",
+    known_stores          => ['rbd'],
+    show_image_direct_url => true,
   }
 
   class { 'glance::registry':
