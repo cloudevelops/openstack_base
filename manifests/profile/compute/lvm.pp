@@ -12,7 +12,7 @@ class openstack_base::profile::compute::lvm (
     nova_config {
       'libvirt/images_type':
         value => 'lvm';
-      'libvirt/libvirt_images_volume_group':
+      'libvirt/images_volume_group':
         value => 'vg0';
     }
   }
