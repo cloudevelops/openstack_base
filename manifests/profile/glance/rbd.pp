@@ -13,6 +13,7 @@ class openstack_base::profile::glance::rbd (
     keystone_user       => 'glance',
     keystone_password   => $openstack_base::admin_password,
     database_connection => "mysql://glance:${openstack_base::glance_mysql_password}@${openstack_base::mysql_ip}/glance",
+    known_stores        => 'rbd'
   }
 
   class { 'glance::registry':
