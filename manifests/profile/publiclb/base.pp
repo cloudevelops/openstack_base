@@ -34,6 +34,15 @@ class openstack_base::profile::publiclb::base {
       dport => '5000',
       jump => 'DNAT',
       todest => "${openstack_base::keystone_ip}:5000";
+    '101_dnat_for_keystone_admin':
+      ensure => 'present',
+      table => 'nat',
+      chain => 'PREROUTING',
+      destination => $openstack_base::public_api_ip,
+      proto => 'tcp',
+      dport => '35357',
+      jump => 'DNAT',
+      todest => "${openstack_base::keystone_ip}:35357";
     '101_dnat_for_glance':
       ensure => 'present',
       table => 'nat',
