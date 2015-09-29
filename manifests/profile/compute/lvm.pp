@@ -1,5 +1,7 @@
 class openstack_base::profile::compute::lvm (
-  $ephemeral_storage = true
+  $ephemeral_storage = true,
+  $cinder_availability_zone_enabled = true,
+  $cinder_availability_zone = $hostname,
 ) {
 
   class { 'cinder::volume::iscsi':
@@ -22,4 +24,10 @@ class openstack_base::profile::compute::lvm (
     }
   }
 
+  if $cinder_availability_zone {
+    cinder_config {
+      'DEFAULT/storage_availability_zone':
+        value => $cinder_availability_zone;
+    }
+  }
 }
