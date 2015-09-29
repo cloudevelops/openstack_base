@@ -9,6 +9,7 @@ class openstack_base::profile::keystone::base {
     catalog_type          => 'sql',
     admin_token           => $openstack_base::admin_token,
     database_connection   => "mysql://keystone:${openstack_base::keystone_mysql_password}@${openstack_base::mysql_ip}/keystone",
+    token_expiration      => $openstack_base::keystone_token_expiration,
   }
 
   # Installs the service user endpoint.
