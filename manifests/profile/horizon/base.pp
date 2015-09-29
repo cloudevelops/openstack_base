@@ -16,4 +16,10 @@ class openstack_base::profile::horizon::base {
     }
   }
 
+  file_line {'horizon_session_timeout':
+    path => '/etc/openstack-dashboard/local_settings.py',
+    line => "SESSION_TIMEOUT = ${openstack_base::keystone_token_expiration}",
+    notify => Service['apache2']
+  }
+
 }
