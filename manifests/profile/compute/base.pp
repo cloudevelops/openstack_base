@@ -2,6 +2,7 @@ class openstack_base::profile::compute::base (
   $mgmt_ip,
   $vxlan_ip,
   $volume_ip,
+  $disable_apparmor = true,
 ) {
 
   include openstack_base
@@ -41,4 +42,33 @@ class openstack_base::profile::compute::base (
     enabled => true,
   }
 
+  if $disable_apparmor {
+
+    file {'/etc/apparmor.d/disable/usr.sbin.libvirtd':
+      ensure => link,
+      target => '/etc/apparmor.d/usr.sbin.libvirtd',
+      notify => Exec['apparmor_parser_libvirtd']
+    }
+
+    file {'/etc/apparmor.d/disable/usr.lib.libvirt.virt-aa-helper':
+      ensure => link,
+      target => '/etc/apparmor.d/usr.lib.libvirt.virt-aa-helper',
+      notify => Exec['apparmor_parser_libvirtd_aa_helper']
+    }
+
+    exec {'apparmor_parser_libvirtd':
+      refreshonly => true,
+      command => '/sbin/apparmor_parser -R /etc/apparmor.d/usr.sbin.libvirtd',
+      notify => Service['apparmor']
+    }
+
+    exec {'apparmor_parser_libvirtd_aa_helper':
+      refreshonly => true,
+      command => '/sbin/apparmor_parser -R /etc/apparmor.d/usr.lib.libvirt.virt-aa-helper',
+      notify => Service['apparmor']
+    }
+
+    service {'apparmor': }
+
+  }
 }
