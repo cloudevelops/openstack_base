@@ -4,8 +4,10 @@ class openstack_base::profile::compute::lvm (
   $cinder_availability_zone = $hostname,
 ) {
 
+  include openstack_base::profile::compute::base
+
   class { 'cinder::volume::iscsi':
-    iscsi_ip_address => $volume_ip,
+    iscsi_ip_address => $openstack_base::profile::compute::base::volume_ip,
     volume_driver    => 'cinder.volume.drivers.lvm.LVMVolumeDriver',
     volume_group     => 'vg0',
     extra_options    => {
@@ -24,10 +26,10 @@ class openstack_base::profile::compute::lvm (
     }
   }
 
-  if $cinder_availability_zone {
-    cinder_config {
-      'DEFAULT/storage_availability_zone':
-        value => $cinder_availability_zone;
-    }
-  }
+#  if $cinder_availability_zone {
+#    cinder_config {
+#      'DEFAULT/storage_availability_zone':
+#        value => $cinder_availability_zone;
+#    }
+#  }
 }
