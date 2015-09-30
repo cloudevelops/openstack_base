@@ -10,8 +10,10 @@ class openstack_base::profile::compute::lvm (
     ensure => present
   }
 
+  $volume_ip = $openstack_base::profile::compute::base::volume_ip
+
   class { 'cinder::volume::iscsi':
-    iscsi_ip_address => $openstack_base::profile::compute::base::volume_ip,
+    iscsi_ip_address => $volume_ip,
     volume_driver    => 'cinder.volume.drivers.lvm.LVMVolumeDriver',
     volume_group     => 'vg0',
     extra_options    => {
@@ -29,6 +31,14 @@ class openstack_base::profile::compute::lvm (
         value => 'vg0';
     }
   }
+
+  file {'/etc/init/tgt.conf':
+    ensure => present,
+    content => template('openstack_base/profile/compute/tgt.conf.erb'),
+    notify => Service['tgt']
+  }
+
+  service {'tgt': }
 
 #  if $cinder_availability_zone {
 #    cinder_config {
