@@ -12,7 +12,7 @@ class openstack_base::profile::compute::lvm (
 
   class { 'cinder::volume::iscsi':
     iscsi_ip_address => $openstack_base::profile::compute::base::volume_ip,
-    volume_driver    => 'cinder.volume.drivers.lvm.LVMISCSIDriver',
+    volume_driver    => 'cinder.volume.drivers.lvm.LVMVolumeDriver',
     volume_group     => 'vg0',
     extra_options    => {
       'DEFAULT/lvm_type' => {
