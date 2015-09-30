@@ -38,8 +38,6 @@ class openstack_base::profile::compute::lvm (
     notify => Service['tgt']
   }
 
-  service {'tgt': }
-
 #  if $cinder_availability_zone {
 #    cinder_config {
 #      'DEFAULT/storage_availability_zone':
