@@ -38,6 +38,11 @@ class openstack_base::profile::compute::base (
     libvirt_virt_type => 'kvm',
   }
 
+  # bugfix that nova-compute talks to cinder via public rul
+  nova_config {
+    'DEFAULT/cinder_catalog_info': value => 'volume:cinder:internalURL';
+  }
+
   class { 'cinder::volume':
     enabled => true,
   }
