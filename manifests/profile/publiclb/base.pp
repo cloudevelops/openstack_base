@@ -142,7 +142,7 @@ class openstack_base::profile::publiclb::base {
       proto    => 'tcp',
       outiface => 'eth1',
       jump     => 'SNAT',
-      tosource => "${openstack_base::nova_ip}:6080";
+      tosource => "${ipaddress_eth1}:6080";
 #    '101_dnat_for_neutron':
 #      ensure => 'present',
 #      table => 'nat',
