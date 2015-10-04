@@ -64,7 +64,9 @@ class openstack_base::profile::publiclb::base {
     server_name => ['_'],
     proxy => "http://${openstack_base::nova_ip}:6080",
     proxy_read_timeout => 1000,
-    proxy_http_version => '1.1',
+    vhost_cfg_append => {
+      'proxy_http_version' => '1.1'
+    },
     proxy_set_header => [ {
       'Upgrade' => '$http_upgrade',
       'Connection' => '"upgrade"'
