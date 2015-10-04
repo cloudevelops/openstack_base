@@ -13,7 +13,7 @@ ovs-vsctl add-br br-mgmt
 # we assume, that eth1 is the uplink interface
 ip link set dev bond0 up
 # set the mtu of the physical uplink to the switch
-ip link set dev bond0 mtu 9000
+ip link set dev bond0 mtu 1600
 ethtool -K bond0 tso off gro off gso off tx off rx off
 ip link set bond0 promisc on
 #
@@ -42,7 +42,7 @@ ovs-vsctl add-port br-mgmt mgmt tag=822 -- set Interface mgmt type=internal
 ip addr add <%= @mgmt_ip %>/24 dev mgmt
 ip link set dev mgmt up
 # set the mtu of the logical vxlan interface
-ip link set dev mgmt mtu 9000
+ip link set dev mgmt mtu 1600
 
 # create the Linux IP interface required for VXLAN transport
 # this interface is attached to vlan 4000 of br-uplink
@@ -51,4 +51,4 @@ ovs-vsctl add-port br-uplink l3vxlan tag=823 -- set Interface l3vxlan type=inter
 ip addr add <%= @vxlan_ip %>/24 dev l3vxlan
 ip link set dev l3vxlan up
 # set the mtu of the logical vxlan interface
-ip link set dev l3vxlan mtu 9000
+ip link set dev l3vxlan mtu 1600
