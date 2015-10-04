@@ -140,6 +140,7 @@ class openstack_base::profile::publiclb::base {
       table    => 'nat',
       chain    => 'POSTROUTING',
       proto    => 'tcp',
+      dport    => '6080',
       outiface => 'eth1',
       jump     => 'SNAT',
       tosource => "${ipaddress_eth1}:6080";
