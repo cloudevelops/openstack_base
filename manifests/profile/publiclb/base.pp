@@ -59,12 +59,12 @@ class openstack_base::profile::publiclb::base {
     proxy_read_timeout => 1000,
   }
 
-  nginx::resource::vhost { 'nova_novnc':
-    listen_port => 6080,
-    server_name => ['_'],
-    proxy => "http://${openstack_base::nova_ip}:6080",
-    proxy_read_timeout => 1000,
-  }
+#  nginx::resource::vhost { 'nova_novnc':
+#    listen_port => 6080,
+#    server_name => ['_'],
+#    proxy => "http://${openstack_base::nova_ip}:6080",
+#    proxy_read_timeout => 1000,
+#  }
 
   nginx::resource::vhost { 'neutron':
     listen_port => 9696,
@@ -80,7 +80,7 @@ class openstack_base::profile::publiclb::base {
     proxy_read_timeout => 1000,
   }
 
-#  firewall {
+  firewall {
 #    '101_dnat_for_keystone':
 #      ensure => 'present',
 #      table => 'nat',
@@ -126,15 +126,23 @@ class openstack_base::profile::publiclb::base {
 #      dport => '8773',
 #      jump => 'DNAT',
 #      todest => "${openstack_base::nova_ip}:8773";
-#    '101_dnat_for_nova_novnc':
-#      ensure => 'present',
-#      table => 'nat',
-#      chain => 'PREROUTING',
-#      destination => $openstack_base::public_api_ip,
-#      proto => 'tcp',
-#      dport => '6080',
-#      jump => 'DNAT',
-#      todest => "${openstack_base::nova_ip}:6080";
+    '101_dnat_for_nova_novnc':
+      ensure => 'present',
+      table => 'nat',
+      chain => 'PREROUTING',
+      destination => $openstack_base::public_api_ip,
+      proto => 'tcp',
+      dport => '6080',
+      jump => 'DNAT',
+      todest => "${openstack_base::nova_ip}:6080";
+    '102_snat_for_management':
+      ensure   => 'present',
+      table    => 'nat',
+      chain    => 'POSTROUTING',
+      proto    => 'tcp',
+      outiface => 'eth1',
+      jump     => 'SNAT',
+      todest => "${openstack_base::nova_ip}:6080";
 #    '101_dnat_for_neutron':
 #      ensure => 'present',
 #      table => 'nat',
@@ -160,6 +168,6 @@ class openstack_base::profile::publiclb::base {
 #      jump     => 'MASQUERADE',
 #      proto    => 'all',
 #      outiface => 'eth1';
-#  }
+  }
 
 }
