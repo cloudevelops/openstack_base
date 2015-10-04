@@ -24,6 +24,13 @@ class openstack_base::profile::publiclb::base {
       value => '1';
   }
 
+  nginx::resource::vhost { 'keystone':
+    listen_port => 5000,
+    server_name => ['_'],
+    proxy => "http://${openstack_base::keystone_ip}:5000",
+    proxy_read_timeout => 1000,
+  }
+
   nginx::resource::vhost { 'nova_ec2':
     listen_port => 8773,
     server_name => ['_'],
@@ -32,15 +39,15 @@ class openstack_base::profile::publiclb::base {
   }
 
   firewall {
-    '101_dnat_for_keystone':
-      ensure => 'present',
-      table => 'nat',
-      chain => 'PREROUTING',
-      destination => $openstack_base::public_api_ip,
-      proto => 'tcp',
-      dport => '5000',
-      jump => 'DNAT',
-      todest => "${openstack_base::keystone_ip}:5000";
+#    '101_dnat_for_keystone':
+#      ensure => 'present',
+#      table => 'nat',
+#      chain => 'PREROUTING',
+#      destination => $openstack_base::public_api_ip,
+#      proto => 'tcp',
+#      dport => '5000',
+#      jump => 'DNAT',
+#      todest => "${openstack_base::keystone_ip}:5000";
     '101_dnat_for_keystone_admin':
       ensure => 'present',
       table => 'nat',
