@@ -24,6 +24,13 @@ class openstack_base::profile::publiclb::base {
       value => '1';
   }
 
+  nginx::resource::vhost { 'nova_ec2':
+    listen => 8773,
+    server_name => ['_'],
+    proxy => "http://${openstack_base::nova_ip}:8773",
+    proxy_read_timeout => 1000,
+  }
+
   firewall {
     '101_dnat_for_keystone':
       ensure => 'present',
@@ -61,15 +68,15 @@ class openstack_base::profile::publiclb::base {
       dport => '8774',
       jump => 'DNAT',
       todest => "${openstack_base::nova_ip}:8774";
-    '101_dnat_for_nova_ec2':
-      ensure => 'present',
-      table => 'nat',
-      chain => 'PREROUTING',
-      destination => $openstack_base::public_api_ip,
-      proto => 'tcp',
-      dport => '8773',
-      jump => 'DNAT',
-      todest => "${openstack_base::nova_ip}:8773";
+#    '101_dnat_for_nova_ec2':
+#      ensure => 'present',
+#      table => 'nat',
+#      chain => 'PREROUTING',
+#      destination => $openstack_base::public_api_ip,
+#      proto => 'tcp',
+#      dport => '8773',
+#      jump => 'DNAT',
+#      todest => "${openstack_base::nova_ip}:8773";
     '101_dnat_for_nova_novnc':
       ensure => 'present',
       table => 'nat',
