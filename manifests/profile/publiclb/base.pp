@@ -25,7 +25,7 @@ class openstack_base::profile::publiclb::base {
   }
 
   nginx::resource::vhost { 'nova_ec2':
-    listen => 8773,
+    listen_port => 8773,
     server_name => ['_'],
     proxy => "http://${openstack_base::nova_ip}:8773",
     proxy_read_timeout => 1000,
