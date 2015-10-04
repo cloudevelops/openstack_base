@@ -67,10 +67,10 @@ class openstack_base::profile::publiclb::base {
     vhost_cfg_append => {
       'proxy_http_version' => '1.1'
     },
-    proxy_set_header => [ {
-      'Upgrade' => '$http_upgrade',
-      'Connection' => '"upgrade"'
-    } ]
+    proxy_set_header => [
+      'Upgrade $http_upgrade',
+      'Connection "upgrade"'
+    ]
   }
 
   nginx::resource::vhost { 'neutron':
