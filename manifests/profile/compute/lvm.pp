@@ -19,6 +19,9 @@ class openstack_base::profile::compute::lvm (
     extra_options    => {
       'DEFAULT/lvm_type' => {
         value => 'thin'
+      },
+      'DEFAULT/max_over_subscription_ratio' => {
+        value => '1'
       }
     }
   }
