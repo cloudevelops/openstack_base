@@ -40,7 +40,7 @@ class openstack_base::profile::compute::base (
 
   # bugfix that nova-compute talks to cinder via public rul
   nova_config {
-    'DEFAULT/cinder_catalog_info': value => 'volume:cinder:internalURL';
+    'DEFAULT/cinder_catalog_info': value => 'volumev2:cinderv2:internalURL';
   }
 
   class { 'cinder::volume':
