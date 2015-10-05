@@ -143,15 +143,15 @@ class openstack_base::profile::publiclb::base {
       dport => '6080',
       jump => 'DNAT',
       todest => "${openstack_base::nova_ip}:6080";
-    '102_masquerade_for_nova_novnc':
-      ensure   => 'present',
-      table    => 'nat',
-      chain    => 'POSTROUTING',
-      proto    => 'tcp',
-      destination => $openstack_base::nova_ip,
-      dport    => '6080',
-      outiface => 'eth1',
-      jump     => 'MASQUERADE';
+#    '102_masquerade_for_nova_novnc':
+#      ensure   => 'present',
+#      table    => 'nat',
+#      chain    => 'POSTROUTING',
+#      proto    => 'tcp',
+#      destination => $openstack_base::nova_ip,
+#      dport    => '6080',
+#      outiface => 'eth1',
+#      jump     => 'MASQUERADE';
     '101_dnat_for_neutron':
       ensure => 'present',
       table => 'nat',
