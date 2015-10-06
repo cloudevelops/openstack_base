@@ -76,4 +76,10 @@ class openstack_base::profile::compute::base (
     service {'apparmor': }
 
   }
+
+  sysctl::value {
+    'vm.swappiness':
+      value => '0';
+  }
+
 }
