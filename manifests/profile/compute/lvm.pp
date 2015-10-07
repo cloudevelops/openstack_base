@@ -1,7 +1,5 @@
 class openstack_base::profile::compute::lvm (
   $ephemeral_storage = true,
-  $cinder_availability_zone_enabled = true,
-  $cinder_availability_zone = $hostname,
 ) {
 
   include openstack_base::profile::compute::base
@@ -41,10 +39,4 @@ class openstack_base::profile::compute::lvm (
     notify => Service['tgt']
   }
 
-#  if $cinder_availability_zone {
-#    cinder_config {
-#      'DEFAULT/storage_availability_zone':
-#        value => $cinder_availability_zone;
-#    }
-#  }
 }

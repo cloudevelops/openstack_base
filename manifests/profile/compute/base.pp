@@ -3,6 +3,7 @@ class openstack_base::profile::compute::base (
   $vxlan_ip,
   $volume_ip,
   $disable_apparmor = true,
+  $default_availability_zone = 'nova',
 ) {
 
   include openstack_base
@@ -29,6 +30,7 @@ class openstack_base::profile::compute::base (
     vncproxy_protocol => 'http',
     vncproxy_port     => '6080',
     vncserver_proxyclient_address => $ipaddress_mgmt,
+    default_availability_zone => $default_availability_zone,
   }
 
   class { 'nova::compute::libvirt':

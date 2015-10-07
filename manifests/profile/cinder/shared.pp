@@ -1,15 +1,17 @@
 class openstack_base::profile::cinder::shared (
   $verbose = false,
   $debug   = false,
+  $storage_availability_zone = 'nova',
 ) {
 
   class { 'cinder':
-    database_connection => "mysql://cinder:${openstack_base::cinder_mysql_password}@${openstack_base::mysql_ip}/cinder",
-    rabbit_userid       => 'openstack',
-    rabbit_password     => $openstack_base::rabbitmq_password,
-    rabbit_host         => $openstack_base::rabbitmq_ip,
-    verbose             => $verbose,
-    debug               => $debug,
+    database_connection       => "mysql://cinder:${openstack_base::cinder_mysql_password}@${openstack_base::mysql_ip}/cinder",
+    rabbit_userid             => 'openstack',
+    rabbit_password           => $openstack_base::rabbitmq_password,
+    rabbit_host               => $openstack_base::rabbitmq_ip,
+    verbose                   => $verbose,
+    debug                     => $debug,
+    storage_availability_zone => $storage_availability_zone,
   }
 
   cinder_config {
