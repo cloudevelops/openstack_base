@@ -5,6 +5,7 @@ class openstack_base::profile::compute::rbd (
   $rbd_secret_key,
   $rbd_secret_uuid,
   $volume_backend_name = 'DEFAULT',
+  $rbd_host = undef,
 ) {
 
   include openstack_base
@@ -24,6 +25,7 @@ class openstack_base::profile::compute::rbd (
     rbd_flatten_volume_from_snapshot => true,
     rbd_secret_uuid                  => $rbd_secret_uuid,
     extra_options                    => $extra_options,
+    host                             => $rbd_host,
   }
 
 }
