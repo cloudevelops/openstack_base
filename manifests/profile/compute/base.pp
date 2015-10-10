@@ -5,6 +5,7 @@ class openstack_base::profile::compute::base (
   $disable_apparmor = true,
   $default_availability_zone = 'nova',
   $cinder_backends = false,
+  $default_volume_type = undef,
 ) {
 
   include openstack_base
@@ -53,6 +54,12 @@ class openstack_base::profile::compute::base (
   if $cinder_backends {
     class {'cinder::backends':
       enabled_backends => $cinder_backends
+    }
+
+    if $default_volume_type {
+      cinder_config {
+        'DEFAULT/default_volume_type': value => $default_volume_type;
+      }
     }
   }
 
