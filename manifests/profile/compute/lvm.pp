@@ -11,7 +11,7 @@ class openstack_base::profile::compute::lvm (
 
   $volume_ip = $openstack_base::profile::compute::base::volume_ip
 
-  cinder::volume::iscsi { $volume_backend_name:
+  cinder::backend::iscsi { $volume_backend_name:
     iscsi_ip_address => $volume_ip,
     volume_group     => 'vg0',
     extra_options    => {
