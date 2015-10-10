@@ -4,6 +4,7 @@ class openstack_base::profile::compute::base (
   $volume_ip,
   $disable_apparmor = true,
   $default_availability_zone = 'nova',
+  $cinder_backends = false,
 ) {
 
   include openstack_base
@@ -47,6 +48,12 @@ class openstack_base::profile::compute::base (
 
   class { 'cinder::volume':
     enabled => true,
+  }
+
+  if $cinder_backends {
+    class {'cinder::backends':
+      enabled_backends => $cinder_backends
+    }
   }
 
   if $disable_apparmor {

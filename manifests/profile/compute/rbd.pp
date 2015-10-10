@@ -4,6 +4,7 @@ class openstack_base::profile::compute::rbd (
   $rbd_keyring = 'client.compute',
   $rbd_secret_key,
   $rbd_secret_uuid,
+  $volume_backend_name = 'DEFAULT',
 ) {
 
   include openstack_base
@@ -15,6 +16,14 @@ class openstack_base::profile::compute::rbd (
     libvirt_rbd_secret_key       => $rbd_secret_key,
     libvirt_images_rbd_pool      => $rbd_pool,
     rbd_keyring                  => $rbd_keyring,
+  }
+
+  cinder::backend::rbd { $volume_backend_name:
+    rbd_pool                         => $rbd_pool,
+    rbd_user                         => $rbd_user,
+    rbd_flatten_volume_from_snapshot => true,
+    rbd_secret_uuid                  => $rbd_secret_uuid,
+    extra_options                    => $extra_options,
   }
 
 }

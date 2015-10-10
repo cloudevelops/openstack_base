@@ -1,5 +1,6 @@
 class openstack_base::profile::compute::lvm (
   $ephemeral_storage = true,
+  $volume_backend_name = 'DEFAULT',
 ) {
 
   include openstack_base::profile::compute::base
@@ -10,15 +11,14 @@ class openstack_base::profile::compute::lvm (
 
   $volume_ip = $openstack_base::profile::compute::base::volume_ip
 
-  class { 'cinder::volume::iscsi':
+  cinder::volume::iscsi { $volume_backend_name:
     iscsi_ip_address => $volume_ip,
-    volume_driver    => 'cinder.volume.drivers.lvm.LVMVolumeDriver',
     volume_group     => 'vg0',
     extra_options    => {
-      'DEFAULT/lvm_type' => {
+      "${volume_backend_name}/lvm_type" => {
         value => 'thin'
       },
-      'DEFAULT/max_over_subscription_ratio' => {
+      "${volume_backend_name}/max_over_subscription_ratio" => {
         value => '1'
       }
     }
