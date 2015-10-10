@@ -1,3 +1,6 @@
+# add host to independent AZ
+# nova aggregate-create AG1 AZ1
+# nova aggregate-add-host AG1 host1
 class openstack_base::profile::compute::base (
   $mgmt_ip,
   $vxlan_ip,
