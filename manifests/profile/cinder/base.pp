@@ -1,3 +1,9 @@
+# Example to add multiple backends
+# cinder type-create lvm_ssd
+# cinder type-create ceph_hdd
+# cinder type-key lvm_ssd set volume_backend_name=lvm_ssd
+# cinder type-key ceph_hdd set volume_backend_name=ceph_hdd
+#
 class openstack_base::profile::cinder::base {
 
   include openstack_base

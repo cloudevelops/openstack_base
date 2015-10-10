@@ -2,6 +2,7 @@ class openstack_base::profile::cinder::shared (
   $verbose = false,
   $debug   = false,
   $storage_availability_zone = 'nova',
+  $default_volume_type = undef,
 ) {
 
   class { 'cinder':
@@ -16,6 +17,12 @@ class openstack_base::profile::cinder::shared (
 
   cinder_config {
     'DEFAULT/glance_host':                   value => $openstack_base::glance_ip;
+  }
+
+  if $default_volume_type {
+    cinder_config {
+      'DEFAULT/default_volume_type': value => $default_volume_type;
+    }
   }
 
 }
