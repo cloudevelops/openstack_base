@@ -4,7 +4,9 @@
 # cinder type-key lvm_ssd set volume_backend_name=lvm_ssd
 # cinder type-key ceph_hdd set volume_backend_name=ceph_hdd
 #
-class openstack_base::profile::cinder::base {
+class openstack_base::profile::cinder::base (
+  $scheduler_driver = 'cinder.scheduler.simple.SimpleScheduler',
+) {
 
   include openstack_base
   include openstack_base::profile::cinder::shared
@@ -23,7 +25,7 @@ class openstack_base::profile::cinder::base {
 
   class { 'cinder::scheduler':
     enabled          => true,
-    scheduler_driver => 'cinder.scheduler.simple.SimpleScheduler',
+    scheduler_driver => $scheduler_driver,
   }
 
   class {'cinder::client':
