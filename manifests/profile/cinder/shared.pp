@@ -19,10 +19,4 @@ class openstack_base::profile::cinder::shared (
     'DEFAULT/glance_host':                   value => $openstack_base::glance_ip;
   }
 
-  if $default_volume_type {
-    cinder_config {
-      'DEFAULT/default_volume_type': value => $default_volume_type;
-    }
-  }
-
 }

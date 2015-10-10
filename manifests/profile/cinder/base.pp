@@ -18,6 +18,7 @@ class openstack_base::profile::cinder::base {
     sync_db           => true,
     service_workers   => $api_workers,
     validate          => true, # Fails with a V2 API endpoint
+    default_volume_type => $openstack_base::profile::cinder::shared::default_volume_type
   }
 
   class { 'cinder::scheduler':
