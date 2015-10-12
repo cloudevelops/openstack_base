@@ -10,6 +10,8 @@ class openstack_base::profile::heat::base {
     keystone_ec2_uri    => "http://${openstack_base::keystone_ip}:5000/v2.0/ec2tokens",
     keystone_password   => $openstack_base::admin_password,
     database_connection => "mysql://heat:${openstack_base::heat_mysql_password}@${openstack_base::mysql_ip}/heat?charset=utf8",
+    verbose             => true,
+    debug               => true,
   }
 
   class { '::heat::engine':
