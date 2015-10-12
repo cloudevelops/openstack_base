@@ -9,6 +9,7 @@ class openstack_base::profile::heat::base {
 
   class { '::heat::engine':
     auth_encryption_key => $openstack_base::heat_auth_encryption_key,
+    configure_delegated_roles => false,
   }
 
   class { '::heat::api': }
