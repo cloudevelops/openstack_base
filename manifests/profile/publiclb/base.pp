@@ -170,6 +170,15 @@ class openstack_base::profile::publiclb::base {
       dport => '8776',
       jump => 'DNAT',
       todest => "${openstack_base::cinder_ip}:8776";
+    '101_dnat_for_heat':
+      ensure => 'present',
+      table => 'nat',
+      chain => 'PREROUTING',
+      destination => $openstack_base::public_api_ip,
+      proto => 'tcp',
+      dport => '8004',
+      jump => 'DNAT',
+      todest => "${openstack_base::heat_ip}:8004";
     '102_masq_for_management':
       ensure => 'present',
       table => 'nat',
