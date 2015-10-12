@@ -60,6 +60,15 @@ class openstack_base::profile::mysql::base {
 
   }
 
+  if $openstack_base::heat_enabled {
+
+    class { 'heat::db::mysql':
+      password      => $openstack_base::heat_mysql_password,
+      allowed_hosts => '%',
+    }
+
+  }
+
 
 
 }
