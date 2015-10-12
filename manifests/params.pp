@@ -34,4 +34,5 @@ class openstack_base::params {
   $heat_enabled = true
   $heat_ip = $ipaddress
   $heat_mysql_password = $mysql_root_password
+  $heat_auth_encryption_key = 'ed1420f8-73e7-064b-b53c-9f2dc406ed97'
 }
