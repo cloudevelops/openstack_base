@@ -22,12 +22,16 @@ class openstack_base::profile::heat::base {
 
   class { '::heat::api': }
 
-  class {'::heat::policy':
-    policies => {
-      'heat-deny_stack_user' => {
-        'deny_stack_user' => 'role:heat_stack_user'
-      }
+  $policies = {
+    'heat-deny_stack_user' => {
+      'deny_stack_user' => 'role:heat_stack_user'
     }
   }
+
+  Openstacklib::Policy::Base {
+    file_path => '/etc/heat/policy.json',
+  }
+
+  create_resources('openstacklib::policy::base', $policies)
 
 }
