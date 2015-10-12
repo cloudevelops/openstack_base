@@ -128,6 +128,11 @@ class openstack_base::profile::keystone::base {
       internal_url        => "http://${openstack_base::heat_ip}:8004/v1/%(tenant_id)s"
     }
 
+    keystone_role { 'heat_stack_owner':
+      ensure => present,
+    }
+
+
   }
 
 }
