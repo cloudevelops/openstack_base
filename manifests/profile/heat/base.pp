@@ -24,7 +24,8 @@ class openstack_base::profile::heat::base {
 
   $policies = {
     'heat-deny_stack_user' => {
-      'deny_stack_user' => 'role:heat_stack_user'
+      'key' => 'deny_stack_user',
+      'value' => 'role:heat_stack_user'
     }
   }
 
