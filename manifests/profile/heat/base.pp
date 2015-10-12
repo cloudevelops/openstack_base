@@ -22,4 +22,12 @@ class openstack_base::profile::heat::base {
 
   class { '::heat::api': }
 
+  class {'::heat::policy':
+    policies => {
+      'heat-deny_stack_user' => {
+        'deny_stack_user' => 'role:heat_stack_user'
+      }
+    }
+  }
+
 }
