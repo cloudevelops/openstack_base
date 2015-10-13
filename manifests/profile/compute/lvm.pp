@@ -1,13 +1,12 @@
 class openstack_base::profile::compute::lvm (
   $ephemeral_storage = true,
   $volume_backend_name = 'DEFAULT',
+  $volume = {},
 ) {
 
   include openstack_base::profile::compute::base
 
-  package { 'thin-provisioning-tools':
-    ensure => present
-  }
+  ensure_packages('thin-provisioning-tools')
 
   $volume_ip = $openstack_base::profile::compute::base::volume_ip
 
@@ -38,5 +37,7 @@ class openstack_base::profile::compute::lvm (
     content => template('openstack_base/profile/compute/tgt.conf.erb'),
     notify => Service['tgt']
   }
+
+  create_resources('openstack_base::profile::compute::lvm_volume',$volume)
 
 }
