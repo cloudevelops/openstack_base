@@ -22,7 +22,6 @@ class openstack_base::profile::compute::rbd (
   cinder::backend::rbd { $volume_backend_name:
     rbd_pool                         => $rbd_pool,
     rbd_user                         => $rbd_user,
-    rbd_flatten_volume_from_snapshot => true,
     rbd_secret_uuid                  => $rbd_secret_uuid,
     extra_options                    => $extra_options,
     host                             => $rbd_host,
