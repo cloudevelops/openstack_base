@@ -32,6 +32,8 @@ class openstack_base::profile::compute::lvm (
     }
   }
 
+  include repository_base::profile::apt::ubuntu_backports
+
   file {'/etc/init/tgt.conf':
     ensure => present,
     content => template('openstack_base/profile/compute/tgt.conf.erb'),
