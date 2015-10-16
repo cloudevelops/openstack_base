@@ -69,6 +69,7 @@ class openstack_base (
   $heat_ip                      = $openstack_base::params::heat_ip,
   $heat_mysql_password          = $openstack_base::params::heat_mysql_password,
   $heat_auth_encryption_key     = $openstack_base::params::heat_auth_encryption_key,
+  $version                      = $openstack_base::params::version
 
 ) inherits openstack_base::params {
 
