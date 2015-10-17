@@ -13,7 +13,8 @@ class openstack_base::profile::horizon::base {
     neutron_options       => {
       enable_lb => true,
       enable_firewall => true
-    }
+    },
+    allowed_hosts         => $openstack_base::horizon_fqdn
   }
 
   file_line {'horizon_session_timeout':
