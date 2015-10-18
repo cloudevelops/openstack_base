@@ -31,5 +31,4 @@ define openstack_base::profile::compute::lvm_volume (
         value => $volume_group;
     }
   }
-
 }

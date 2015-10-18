@@ -2,6 +2,7 @@ class openstack_base::profile::compute::lvm (
   $ephemeral_storage = true,
   $volume_backend_name = 'DEFAULT',
   $volume = {},
+  $rbd_lvm_migration_patch = false,
 ) {
 
   include openstack_base::profile::compute::base
@@ -41,5 +42,18 @@ class openstack_base::profile::compute::lvm (
   }
 
   create_resources('openstack_base::profile::compute::lvm_volume',$volume)
+
+  if $rbd_lvm_migration_patch {
+    file {
+      '/usr/lib/python2.7/dist-packages/cinder/volume/drivers/lvm.py':
+        ensure => present,
+        source => 'puppet:///modules/openstack_base/profile/cinder/rbd_lvm_migration_patch/lvm.py',
+        notify => Service['cinder-volume'];
+      '/usr/lib/python2.7/dist-packages/cinder/volume/drivers/lvm.pyc':
+        ensure => present,
+        source => 'puppet:///modules/openstack_base/profile/cinder/rbd_lvm_migration_patch/lvm.pyc',
+        notify => Service['cinder-volume'];
+    }
+  }
 
 }
