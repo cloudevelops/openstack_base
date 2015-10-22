@@ -28,6 +28,10 @@ class openstack_base::profile::cinder::base (
     scheduler_driver => $scheduler_driver,
   }
 
+  cinder_config {
+    'DEFAULT/scheduler_default_filters': value => 'CapacityFilter';
+  }
+
   class {'cinder::client':
   }
 
