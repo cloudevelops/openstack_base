@@ -24,7 +24,7 @@ class openstack_base::profile::cinder::base (
   }
 
   cinder_config {
-    'keymgr/encryption_auth_url': value => "http://${openstack_base::keystone_ip}:5000/v3.0",;
+    'keymgr/encryption_auth_url': value => "http://${openstack_base::keystone_ip}:5000/v3",;
   }
 
   class { 'cinder::scheduler':
