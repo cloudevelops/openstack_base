@@ -23,6 +23,10 @@ class openstack_base::profile::cinder::base (
     default_volume_type => $openstack_base::profile::cinder::shared::default_volume_type
   }
 
+  cinder_config {
+    'keymgr/encryption_auth_url': value => "http://${openstack_base::keystone_ip}:5000/v3.0",;
+  }
+
   class { 'cinder::scheduler':
     enabled          => true,
     scheduler_driver => $scheduler_driver,
