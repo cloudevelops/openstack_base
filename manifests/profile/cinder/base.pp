@@ -6,6 +6,7 @@
 #
 class openstack_base::profile::cinder::base (
   $scheduler_driver = 'cinder.scheduler.simple.SimpleScheduler',
+  $filter_patches = true,
 ) {
 
   include openstack_base
@@ -37,6 +38,27 @@ class openstack_base::profile::cinder::base (
   }
 
   class {'cinder::client':
+  }
+
+  if $filter_patches {
+    file {
+      '/usr/lib/python2.7/dist-packages/cinder/openstack/common/scheduler/filters/availability_zone_filter.py':
+        ensure => present,
+        source => 'puppet:///modules/openstack_base/profile/cinder/filter_patches/availability_zone_filter.py',
+        notify => Service['cinder-volume'];
+      '/usr/lib/python2.7/dist-packages/cinder/openstack/common/scheduler/filters/availability_zone_filter.pyc':
+        ensure => present,
+        source => 'puppet:///modules/openstack_base/profile/cinder/filter_patches/availability_zone_filter.pyc',
+        notify => Service['cinder-volume'];
+      '/usr/lib/python2.7/dist-packages/cinder/openstack/common/scheduler/filters/capabilities_filter.py':
+        ensure => present,
+        source => 'puppet:///modules/openstack_base/profile/cinder/filter_patches/capabilities_filter.py',
+        notify => Service['cinder-volume'];
+      '/usr/lib/python2.7/dist-packages/cinder/openstack/common/scheduler/filters/capabilities_filter.pyc':
+        ensure => present,
+        source => 'puppet:///modules/openstack_base/profile/cinder/filter_patches/capabilities_filter.pyc',
+        notify => Service['cinder-volume'];
+    }
   }
 
 }
