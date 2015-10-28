@@ -34,7 +34,7 @@ class openstack_base::profile::cinder::base (
   }
 
   cinder_config {
-    'DEFAULT/scheduler_default_filters': value => 'CapacityFilter';
+    'DEFAULT/scheduler_default_filters': value => 'CapacityFilter,CapabilitiesFilter,AvailabilityZoneFilter';
   }
 
   class {'cinder::client':
