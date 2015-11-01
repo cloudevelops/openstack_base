@@ -27,15 +27,26 @@ class openstack_base::profile::compute::base (
     bridge_mappings  => ['vlannet:br-vlan'],
   }
 
-  class { 'nova::compute':
-    enabled           => true,
-    vnc_enabled       => true,
-    vncproxy_host     => $openstack_base::nova_ip,
-    vncproxy_protocol => 'http',
-    vncproxy_port     => '6080',
-    vncserver_proxyclient_address => $ipaddress_mgmt,
-    default_availability_zone => $default_availability_zone,
+  if $openstack_base::ceilometer_enabled {
+    $instance_usage_audit        = true
+    $instance_usage_audit_period = 'hour'
+  } else {
+    $instance_usage_audit        = false
+    $instance_usage_audit_period = undef
   }
+
+  class { 'nova::compute':
+    enabled                       => true,
+    vnc_enabled                   => true,
+    vncproxy_host                 => $openstack_base::nova_ip,
+    vncproxy_protocol             => 'http',
+    vncproxy_port                 => '6080',
+    vncserver_proxyclient_address => $ipaddress_mgmt,
+    default_availability_zone     => $default_availability_zone,
+    instance_usage_audit          => $instance_usage_audit,
+    instance_usage_audit_period   => $instance_usage_audit_period,
+  }
+
 
   class { 'nova::compute::libvirt':
     migration_support => true,
