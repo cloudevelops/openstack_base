@@ -22,11 +22,30 @@ class openstack_base::profile::glance::base {
 
   class { 'glance::backend::file': }
 
+  if $openstack_base::ceilometer_enabled {
+    $notification_driver = 'messagingv2'
+    glance_registry_config {
+      'DEFAULT/notification_driver':
+        value => 'messagingv2';
+      'DEFAULT/rpc_backend':
+        value => 'rabbit';
+      'DEFAULT/rabbit_host':
+        value => $openstack_base::rabbitmq_ip;
+      'DEFAULT/rabbit_userid':
+        value => 'openstack';
+      'DEFAULT/rabbit_password':
+        value => $openstack_base::rabbitmq_password;
+    }
+  } else {
+    $notification_driver = undef
+  }
+
   class { 'glance::notify::rabbitmq':
     rabbit_password => $openstack_base::rabbitmq_password,
     rabbit_userid   => 'openstack',
     rabbit_hosts    => ["${openstack_base::rabbitmq_ip}:5672"],
     rabbit_use_ssl  => false,
+    notification_driver => $notification_driver,
   }
 
 #
