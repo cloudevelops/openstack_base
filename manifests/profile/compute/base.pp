@@ -106,4 +106,16 @@ class openstack_base::profile::compute::base (
       value => '0';
   }
 
+  if $openstack_base::ceilometer_enabled {
+
+    include openstack_base::profile::ceilometer::shared
+
+    class { '::ceilometer::agent::polling':
+      central_namespace => false,
+      compute_namespace => true,
+      ipmi_namespace    => false,
+    }
+
+  }
+
 }
