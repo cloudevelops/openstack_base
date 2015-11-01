@@ -10,7 +10,9 @@ class openstack_base::profile::ceilometer::base {
   }
 
   class { '::ceilometer::api':
-    keystone_password => $openstack_base::admin_password
+    keystone_password => $openstack_base::admin_password,
+    auth_uri          => "http://${openstack_base::keystone_ip}:5000/v2.0",
+    identity_uri      => "http://${openstack_base::keystone_ip}:35357",
   }
 
   class { '::ceilometer::agent::polling':
