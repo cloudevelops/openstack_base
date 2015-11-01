@@ -28,4 +28,11 @@ class openstack_base::profile::neutron::base {
     source => 'puppet:///modules/openstack_base/profile/neutron/neutron_lbaas.conf',
   }
 
+  if $openstack_base::ceilometer_enabled {
+    neutron_config {
+      'DEFAULT/notification_driver':
+        value => 'messagingv2';
+    }
+  }
+
 }

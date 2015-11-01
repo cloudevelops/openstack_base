@@ -22,4 +22,11 @@ class openstack_base::profile::heat::base {
 
   class { '::heat::api': }
 
+  if $openstack_base::ceilometer_enabled {
+    heat_config {
+      'DEFAULT/notification_driver':
+        value => 'messagingv2';
+    }
+  }
+
 }
