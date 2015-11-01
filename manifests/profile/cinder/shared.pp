@@ -19,4 +19,8 @@ class openstack_base::profile::cinder::shared (
     'DEFAULT/glance_host':                   value => $openstack_base::glance_ip;
   }
 
+  if $openstack_base::ceilometer_enabled {
+    class {'cinder::ceilometer': }
+  }
+
 }
