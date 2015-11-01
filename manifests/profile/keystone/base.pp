@@ -132,6 +132,18 @@ class openstack_base::profile::keystone::base {
       ensure => present,
     }
 
+  }
+
+  if $openstack_base::ceilometer_enabled {
+
+    class { 'ceilometer::keystone::auth':
+      password            => $openstack_base::admin_password,
+      email               => 'ceilometer@openstack',
+      region              => $openstack_base::region,
+      public_url          => "http://${openstack_base::public_api_ip}:8777",
+      admin_url           => "http://${openstack_base::ceilometer_ip}:8777",
+      internal_url        => "http://${openstack_base::ceilometer_ip}:8777",
+    }
 
   }
 

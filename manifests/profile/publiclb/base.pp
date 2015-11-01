@@ -179,6 +179,15 @@ class openstack_base::profile::publiclb::base {
       dport => '8004',
       jump => 'DNAT',
       todest => "${openstack_base::heat_ip}:8004";
+    '101_dnat_for_ceilometer':
+      ensure => 'present',
+      table => 'nat',
+      chain => 'PREROUTING',
+      destination => $openstack_base::public_api_ip,
+      proto => 'tcp',
+      dport => '8777',
+      jump => 'DNAT',
+      todest => "${openstack_base::ceilometer_ip}:8777";
     '102_masq_for_management':
       ensure => 'present',
       table => 'nat',
