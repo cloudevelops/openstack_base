@@ -23,7 +23,7 @@ class openstack_base::profile::ceilometer::base {
 
   class { '::ceilometer::agent::polling':
     central_namespace => true,
-    compute_namespace => true,
+    compute_namespace => false,
     ipmi_namespace    => false,
   }
 
