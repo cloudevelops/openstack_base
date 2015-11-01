@@ -31,4 +31,6 @@ class openstack_base::profile::ceilometer::base {
 
   class { '::ceilometer::agent::notification': }
 
+  class { '::ceilometer::collector': }
+
 }
