@@ -38,4 +38,5 @@ class openstack_base::params {
   $version = 'liberty'
   $ceilometer_enabled = true
   $ceilometer_ip = $ipaddress
+  $ceilometer_metering_secret = 'a22d8441-4b4c-a4ad-5fba-c1d583f3569a'
 }

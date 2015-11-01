@@ -72,6 +72,7 @@ class openstack_base (
   $version                      = $openstack_base::params::version,
   $ceilometer_enabled           = $openstack_base::params::ceilometer_enabled,
   $ceilometer_ip                = $openstack_base::params::ceilometer_ip,
+  $ceilometer_metering_secret   = $openstack_base::params::ceilometer_metering_secret,
 
 ) inherits openstack_base::params {
 
