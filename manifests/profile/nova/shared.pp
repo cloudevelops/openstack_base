@@ -30,4 +30,8 @@ class openstack_base::profile::nova::shared (
     neutron_url => "http://${openstack_base::neutron_ip}:9696",
   }
 
+  nova_config { 'DEFAULT/allow_resize_to_same_host':
+    value => 'True';
+  }
+
 }
