@@ -11,11 +11,11 @@ ovs-vsctl add-br br-mgmt
 #
 # add the uplink (with dot1q tags 101,102,...)
 # we assume, that eth1 is the uplink interface
-ip link set dev bond0 up
+ip link set dev p4p1 up
 # set the mtu of the physical uplink to the switch
-ip link set dev bond0 mtu 1600
-ethtool -K bond0 tso off gro off gso off tx off rx off
-ip link set bond0 promisc on
+ip link set dev p4p1 mtu 1600
+ethtool -K p4p1 tso off gro off gso off tx off rx off
+ip link set p4p1 promisc on
 #
 # disable gro and lro !! on the uplink
 #ethtool -K eth1 gro off
@@ -24,7 +24,7 @@ ip link set bond0 promisc on
 # enable for intel NICs udp port hashing to distribute traffic to different queues
 #ethtool -N eth1 rx-flow-hash udp4 sdfn
 #
-ovs-vsctl add-port br-uplink bond0 -- set port bond0 vlan_mode=trunk trunk=802,822,823,824,825,826
+ovs-vsctl add-port br-uplink p4p1 -- set port p4p1 vlan_mode=trunk trunk=802,822,823,824,825,826
 #
 # patch ports between br-uplink and br-vlan
 ovs-vsctl add-port br-vlan patch-to-uplink -- set Interface patch-to-uplink type=patch options:peer=patch-to-vlan
