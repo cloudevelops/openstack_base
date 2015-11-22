@@ -1,5 +1,7 @@
 class openstack_base::environment::repository {
 
+  include openstack_base
+
   ensure_packages('ubuntu-cloud-keyring')
 
   apt::source { 'ubuntu-cloud':
