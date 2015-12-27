@@ -8,6 +8,7 @@ class openstack_base::profile::compute::base (
   $disable_apparmor = true,
   $default_availability_zone = 'nova',
   $cinder_backends = false,
+  $ovs_template = 'openstack_base/profile/neutron/ovs.erb',
 ) {
 
   include openstack_base
@@ -16,7 +17,7 @@ class openstack_base::profile::compute::base (
   include openstack_base::profile::cinder::shared
 
   file {'/etc/network/ovs':
-    content => template('openstack_base/profile/neutron/ovs.erb'),
+    content => template($ovs_template),
     mode => 555,
   }
 
