@@ -1,13 +1,14 @@
 class openstack_base::profile::network::base (
   $mgmt_ip,
   $vxlan_ip,
+  $ovs_template = 'openstack_base/profile/neutron/ovs.erb',
 ) {
 
   include openstack_base
   include openstack_base::profile::neutron::shared
 
   file {'/etc/network/ovs':
-    content => template('openstack_base/profile/neutron/ovs.erb'),
+    content => template($ovs_template),
     mode => 555,
   }
 
