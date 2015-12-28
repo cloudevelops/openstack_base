@@ -13,6 +13,7 @@ class openstack_base::profile::compute::base (
 
   include openstack_base
   include openstack_base::profile::neutron::shared
+  include openstack_base::profile::neutron::sysctl
   include openstack_base::profile::nova::shared
   include openstack_base::profile::cinder::shared
 
