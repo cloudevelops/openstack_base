@@ -23,6 +23,7 @@ class openstack_base::params {
   $neutron_enabled = true
   $neutron_ip = $ipaddress
   $neutron_mysql_password = $mysql_root_password
+  $neutron_network_vlan_ranges = '100:200'
   $memcache_ip = $ipaddress
   $horizon_ip = $ipaddress
   $horizon_fqdn = $fqdn

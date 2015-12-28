@@ -57,6 +57,7 @@ class openstack_base (
   $neutron_enabled              = $openstack_base::params::neutron_enabled,
   $neutron_ip                   = $openstack_base::params::neutron_ip,
   $neutron_mysql_password       = $openstack_base::params::neutron_mysql_password,
+  $neutron_network_vlan_ranges  = $openstack_base::params::neutron_network_vlan_ranges,
   $memcache_ip                  = $openstack_base::params::memcache_ip,
   $horizon_ip                   = $openstack_base::params::horizon_ip,
   $horizon_fqdn                 = $openstack_base::params::horizon_fqdn,

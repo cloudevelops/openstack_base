@@ -20,7 +20,7 @@ class openstack_base::profile::neutron::shared {
     mechanism_drivers    => ['openvswitch'],
     vni_ranges           => ['65537:69999'], #VXLAN
     tunnel_id_ranges     => ['65537:69999'], #GRE
-    network_vlan_ranges  => ['vlannet:802:826'],
+    network_vlan_ranges  => ["vlannet:${openstack_base::neutron_network_vlan_ranges}"],
   }
 
 }
