@@ -3,6 +3,11 @@ class openstack_base::profile::compute::lvm (
   $volume_backend_name = 'DEFAULT',
   $volume = {},
   $rbd_lvm_migration_patch = false,
+  $vg = 'vg0',
+  $init_vg = false,
+  $cinder_lv = false,
+  $cinder_lv_size = '25G',
+  $cinder_lv_fs = 'ext4',
 ) {
 
   include openstack_base::profile::compute::base
@@ -13,7 +18,7 @@ class openstack_base::profile::compute::lvm (
 
   cinder::backend::iscsi { $volume_backend_name:
     iscsi_ip_address => $volume_ip,
-    volume_group     => 'vg0',
+    volume_group     => $vg,
     extra_options    => {
       "${volume_backend_name}/lvm_type" => {
         value => 'thin'
@@ -29,7 +34,7 @@ class openstack_base::profile::compute::lvm (
       'libvirt/images_type':
         value => 'lvm';
       'libvirt/images_volume_group':
-        value => 'vg0';
+        value => $vg;
     }
   }
 
@@ -54,6 +59,47 @@ class openstack_base::profile::compute::lvm (
         source => 'puppet:///modules/openstack_base/profile/cinder/rbd_lvm_migration_patch/lvm.pyc',
         notify => Service['cinder-volume'];
     }
+  }
+
+  if $cinder_lv {
+
+    logical_volume { 'cinder':
+      ensure       => present,
+      volume_group => $vg,
+      size         => $cinder_lv_size,
+    }
+
+    filesystem { "/dev/${vg}/cinder":
+      ensure  => present,
+      fs_type => $cinder_lv_fs,
+      require => Logical_Volume['cinder'],
+    }
+
+    file {
+      '/srv/cinder':
+        ensure => directory;
+      '/srv/cinder/conversion':
+        ensure => directory,
+        owner => 'cinder',
+        group => 'cinder',
+        require => Mount['/srv/cinder'];
+      '/var/lib/cinder/conversion':
+        ensure => link,
+        target => '/srv/cinder/conversion',
+        force => true,
+        require => [ Mount['/srv/images'], File['/srv/cinder/conversion' ] ];
+    }
+
+    mount {
+      '/srv/cinder':
+        device  => "/dev/${vg}/cinder",
+        fstype  => $cinder_lv_fs,
+        ensure  => 'mounted',
+        atboot  => true,
+        options => 'defaults',
+        require => [ File['/srv/cinder'], Filesystem["/dev/${vg}/cinder"] ];
+    }
+
   }
 
 }
