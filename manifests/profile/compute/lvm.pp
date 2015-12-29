@@ -87,7 +87,7 @@ class openstack_base::profile::compute::lvm (
         ensure => link,
         target => '/srv/cinder/conversion',
         force => true,
-        require => [ Mount['/srv/images'], File['/srv/cinder/conversion' ] ];
+        require => [ Mount['/srv/cinder'], File['/srv/cinder/conversion' ] ];
     }
 
     mount {
