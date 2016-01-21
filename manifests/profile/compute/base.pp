@@ -9,6 +9,7 @@ class openstack_base::profile::compute::base (
   $default_availability_zone = 'nova',
   $cinder_backends = false,
   $ovs_template = 'openstack_base/profile/neutron/ovs.erb',
+  $facter_patch = true,
 ) {
 
   include openstack_base
@@ -118,6 +119,15 @@ class openstack_base::profile::compute::base (
       ipmi_namespace    => false,
     }
 
+  }
+
+  if $facter_patch {
+    file {
+      '/usr/lib/ruby/vendor_ruby/facter/util/ip.rb':
+        ensure => present,
+        source => 'puppet:///modules/openstack_base/profile/compute/ip.rb',
+        notify => Service['puppet'];
+    }
   }
 
 }
