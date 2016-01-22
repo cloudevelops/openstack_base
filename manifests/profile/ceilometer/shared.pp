@@ -10,6 +10,8 @@ class openstack_base::profile::ceilometer::shared (
     rabbit_password     => $openstack_base::rabbitmq_password,
     verbose             => $verbose,
     debug               => $debug,
+    event_time_to_live	=> '2592000',
+    metering_time_to_live => '2592000',
     rabbit_host         => $openstack_base::rabbitmq_ip,
     metering_secret => $openstack_base::ceilometer_metering_secret
   }
