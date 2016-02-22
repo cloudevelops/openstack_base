@@ -26,8 +26,7 @@ class openstack_base::profile::ceilometer::base {
   class { '::ceilometer::alarm::evaluator': }
 
   class { '::ceilometer::expirer':
-    minute => '2',
-    time_to_live => '2592000',
+    time_to_live => '1592000',
     enable_cron	=> true
   }
 
