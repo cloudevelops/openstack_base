@@ -1,16 +1,20 @@
-class openstack_base::profile::neutron::sysctl {
+class openstack_base::profile::neutron::sysctl (
+  $enabled = true
+) {
 
-  sysctl::value {
-    'net.bridge.bridge-nf-call-arptables':
-      value => '1';
-    'net.bridge.bridge-nf-call-iptables':
-      value => '1';
-    'net.bridge.bridge-nf-call-ip6tables':
-      value => '1';
-    'net.bridge.bridge-nf-filter-vlan-tagged':
-      value => '0';
-    'net.bridge.bridge-nf-filter-pppoe-tagged':
-      value => '0';
+  if $enabled {
+    sysctl::value {
+      'net.bridge.bridge-nf-call-arptables':
+        value => '1';
+      'net.bridge.bridge-nf-call-iptables':
+        value => '1';
+      'net.bridge.bridge-nf-call-ip6tables':
+        value => '1';
+      'net.bridge.bridge-nf-filter-vlan-tagged':
+        value => '0';
+      'net.bridge.bridge-nf-filter-pppoe-tagged':
+        value => '0';
+    }
   }
 
 }
