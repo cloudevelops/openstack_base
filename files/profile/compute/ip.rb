@@ -70,6 +70,7 @@ module Facter::Util::IP
     # platforms with a single regex is probably a bit too much.
     base = output.scan(/^\S+/).collect { |i| i.sub(/:$/, '') }.uniq
     base.reject! {|item| item =~ /^q|^tap/i }
+    return base
   end
 
   def self.get_all_interface_output
