@@ -11,14 +11,14 @@ class openstack_base::profile::client::base (
   file { "/home/${username}/.bashrc":
     ensure   => present,
     source   => 'puppet:///modules/openstack_base/profile/client/bashrc',
-    user     => $username,
+    owner    => $username,
     mode     => 544
   }
 
   file { "/home/${username}/.profile":
     ensure   => present,
     source   => 'puppet:///modules/openstack_base/profile/client/profile',
-    user     => $username,
+    owner    => $username,
     mode     => 544
   }
 
