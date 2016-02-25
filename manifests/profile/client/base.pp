@@ -8,10 +8,11 @@ class openstack_base::profile::client::base (
 
   include openstack_base
 
-  shellvar { "bashrc_keystone":
+  shellvar { 'source':
     ensure   => present,
     target   => "/home/${username}/.bashrc",
-    variable => 'source ~/keystonerc_admin',
+    variable => '~/keystonerc_admin',
+    value    => 'a',
   }
 
   file {"/home/${username}/keystonerc_admin":
