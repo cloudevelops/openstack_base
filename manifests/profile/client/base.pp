@@ -8,11 +8,18 @@ class openstack_base::profile::client::base (
 
   include openstack_base
 
-  shellvar { 'source':
+  file { "/home/${username}/.bashrc":
     ensure   => present,
-    target   => "/home/${username}/.bashrc",
-    variable => '~/keystonerc_admin',
-    value    => 'a',
+    source   => 'puppet:///modules/openstack_base/profile/client/bashrc',
+    user     => $username,
+    mode     => 544
+  }
+
+  file { "/home/${username}/.profile":
+    ensure   => present,
+    source   => 'puppet:///modules/openstack_base/profile/client/profile',
+    user     => $username,
+    mode     => 544
   }
 
   file {"/home/${username}/keystonerc_admin":
