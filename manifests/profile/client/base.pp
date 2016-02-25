@@ -8,7 +8,7 @@ class openstack_base::profile::client::base (
 
   include openstack_base
 
-  if !auth_url {
+  if empty(auth_url) {
     $auth_url_link = "http://${openstack_base::public_api_ip}:5000/v2.0"
   } else {
     $auth_url_link = $auth_url
