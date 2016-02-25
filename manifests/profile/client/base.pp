@@ -9,22 +9,23 @@ class openstack_base::profile::client::base (
   include openstack_base
 
   file { "/home/${username}/.bashrc":
-    ensure   => present,
-    source   => 'puppet:///modules/openstack_base/profile/client/bashrc',
-    owner    => $username,
-    mode     => 544
+    ensure => present,
+    source => 'puppet:///modules/openstack_base/profile/client/bashrc',
+    owner  => $username,
+    mode   => 544
   }
 
   file { "/home/${username}/.profile":
-    ensure   => present,
-    source   => 'puppet:///modules/openstack_base/profile/client/profile',
-    owner    => $username,
-    mode     => 544
+    ensure => present,
+    source => 'puppet:///modules/openstack_base/profile/client/profile',
+    owner  => $username,
+    mode   => 544
   }
 
   file {"/home/${username}/keystonerc_admin":
-    ensure => present,
-    mode => 500,
+    ensure  => present,
+    owner   => $username,
+    mode    => 500,
     content => template('openstack_base/profile/client/keystonerc_admin.erb')
   }
 
