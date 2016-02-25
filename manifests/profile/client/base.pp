@@ -1,12 +1,18 @@
 class openstack_base::profile::client::base (
   $username,
   $password,
-  $auth_url = "http://${openstack_base::public_api_ip}:5000/v2.0",
+  $auth_url = undef,
   $tenant_name = 'admin',
   $api_version = 2,
 ) {
 
   include openstack_base
+
+  if !auth_url {
+    $auth_url_link = "http://${openstack_base::public_api_ip}:5000/v2.0"
+  } else {
+    $auth_url_link = $auth_url
+  }
 
   file { "/home/${username}/.bashrc":
     ensure => present,
