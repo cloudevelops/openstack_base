@@ -16,7 +16,10 @@ class openstack_base::profile::cinder::shared (
   }
 
   cinder_config {
-    'DEFAULT/glance_host':                   value => $openstack_base::glance_ip;
+    'DEFAULT/glance_host':
+      value => $openstack_base::glance_ip;
+    'DEFAULT/nova_endpoint_template':
+      value => "http://${openstack_base::nova_ip}:8774/v2/%(project_id)s";
   }
 
   if $openstack_base::ceilometer_enabled {
