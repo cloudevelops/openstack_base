@@ -48,8 +48,13 @@ class openstack_base::profile::compute::base (
     default_availability_zone     => $default_availability_zone,
     instance_usage_audit          => $instance_usage_audit,
     instance_usage_audit_period   => $instance_usage_audit_period,
+    reserved_host_memory          => '1280',
   }
 
+  nova_config {
+    'DEFAULT/ram_allocation_ratio':
+      value => 1;
+  }
 
   class { 'nova::compute::libvirt':
     migration_support => true,
