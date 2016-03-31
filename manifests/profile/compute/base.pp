@@ -38,8 +38,6 @@ class openstack_base::profile::compute::base (
     $instance_usage_audit_period = undef
   }
 
-  notify{"${openstack_base::nova_ip}": }
-
   class { 'nova::compute':
     enabled                       => true,
     vnc_enabled                   => true,
