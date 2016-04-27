@@ -1,16 +1,13 @@
-openstack_base
+openstack_base example Puppet Openstack profile module
 
-This is the openstack_base module.
-
-License
--------
-
+This is the openstack_base module, example deployment of (very) opinionated Openstack with Puppet.
 
 Contact
 -------
 
+zdenek.janda@cloudevelops.com
 
 Support
 -------
 
-Please log tickets and issues at our [Projects site](http://projects.example.com)
+Please log tickets and issues at our [https://github.com/cloudevelops/openstack_base](Github)
